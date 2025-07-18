@@ -1,0 +1,43 @@
+.parent {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(5, auto);
+  gap: 40px;
+}
+
+.parent > div {
+  border-radius: 1rem;
+}
+
+.div3 {
+  grid-row: span 2 / span 2;
+}
+
+.div4 {
+  grid-row: span 2 / span 2;
+}
+
+.div5 {
+  grid-row: span 2 / span 2;
+}
+
+.div6 {
+  grid-column: span 3 / span 3;
+  grid-row-start: 3;
+  background-color: aliceblue;
+}
+
+.div8 {
+  grid-row: span 2 / span 2;
+  grid-row-start: 4;
+}
+
+.div9 {
+  grid-row: span 2 / span 2;
+  grid-row-start: 4;
+}
+
+.div10 {
+  grid-row: span 2 / span 2;
+  grid-row-start: 4;
+}
