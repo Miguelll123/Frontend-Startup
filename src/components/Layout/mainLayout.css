@@ -1,0 +1,18 @@
+.ant-layout-sider-trigger {
+  background: var(--main-gradient) !important;
+  transition: background-color 0.3s;
+}
+
+.ant-menu-title-content {
+  color: white;
+  font-weight: 450;
+}
+
+ul.ant-menu {
+  background: var(--main-gradient) !important;
+  padding-top: 2rem;
+}
+
+.ant-layout {
+  margin: 0 !important;
+}
