@@ -9,7 +9,7 @@
 }
 
 ul.ant-menu {
-  background: var(--main-gradient) !important;
+  background: var(--vertical-gradient) !important;
   padding-top: 2rem;
 }
 

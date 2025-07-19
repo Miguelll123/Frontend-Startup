@@ -13,4 +13,5 @@
   /*COLORES*/
 
   --main-gradient: linear-gradient(90deg, #1f0d1e, #070d34);
+  --vertical-gradient: linear-gradient(180deg, #1f0d1e, #070d34);
 }
