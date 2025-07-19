@@ -1,19 +1,27 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./components/Startups/Home/Home";
+import MainLayout from "./components/Layout/MainLayout";
 import AuthLogin from "./components/Auth/AuthLogin";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
-
-const Dashboard = () => <h1 style={{color:'#b3aaff', textAlign:'center', marginTop:40}}>Bienvenido al dashboard</h1>;
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Ruta pública para login */}
         <Route path="/login" element={<AuthLogin />} />
+        {/* Rutas privadas, protegidas por autenticación */}
         <Route
           path="/*"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  {/* Aquí puedes añadir más rutas privadas */}
+                </Routes>
+              </MainLayout>
             </ProtectedRoute>
           }
         />
@@ -23,7 +31,3 @@ function App() {
 }
 
 export default App;
-
-
-
-

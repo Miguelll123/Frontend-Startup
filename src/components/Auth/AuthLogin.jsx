@@ -4,6 +4,7 @@ import { login, reset } from "../../features/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
 import "./AuthLogin.css";
+import Header from "../Layout/Header";
 
 const AuthLogin = () => {
   const dispatch = useDispatch();
@@ -49,36 +50,39 @@ const AuthLogin = () => {
   }
 
   return (
-    <div className="auth-login-bg">
-      <form className="auth-login-form" onSubmit={handleSubmit}>
-        <h2>Iniciar Sesión</h2>
-        <div>
-          <label>Correo Electrónico:</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Contraseña:</label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        {isError && <div className="error-message">{message}</div>}
-        <button type="submit">Entrar</button>
-        <div className="register-link">
-          ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
-        </div>
-      </form>
-    </div>
+    <>
+      <Header />
+      <div className="auth-login-bg">
+        <form className="auth-login-form" onSubmit={handleSubmit}>
+          <h2>Iniciar Sesión</h2>
+          <div>
+            <label>Correo Electrónico:</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Contraseña:</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          {isError && <div className="error-message">{message}</div>}
+          <button type="submit">Entrar</button>
+          <div className="register-link">
+            ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 
