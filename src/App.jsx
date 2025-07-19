@@ -1,15 +1,19 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
-import Landing from "./components/Startups/Landing/Landing";
-
-console.log("App.jsx loaded");
+import Home from "./components/Startups/Home/Home";
+import MainLayout from "./components/Layout/MainLayout";
 
 function App() {
   return (
-    <div>
-      <Navbar />
-      <Landing />
-    </div>
+    <>
+      <BrowserRouter>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </MainLayout>
+      </BrowserRouter>
+    </>
   );
 }
 
