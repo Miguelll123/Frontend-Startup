@@ -16,3 +16,9 @@ ul.ant-menu {
 .ant-layout {
   margin: 0 !important;
 }
+
+@media (max-width: 600px) {
+  .demo-logo img {
+    height: 20px !important;
+  }
+}

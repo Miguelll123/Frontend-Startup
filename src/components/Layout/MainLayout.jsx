@@ -42,6 +42,7 @@ export default function MainLayout({ children }) {
       <Header
         style={{
           display: "flex",
+          flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "space-between",
           background: "var(--main-gradient)",
@@ -51,10 +52,32 @@ export default function MainLayout({ children }) {
           boxSizing: "border-box",
         }}
       >
-        <div className="demo-logo" style={{ display: "flex", gap: "15px", alignItems: "center" }}>
-          <img src={logoAjuntament} alt="Logo Ayuntament de valencia" style={{ height: "40px" }} />
-          <img src={logoVIC} alt="Logo Valencia Innovation Capital" style={{ height: "40px" }} />
-          <img src={logoSV} alt="Logo Startup Valencia" style={{ height: "40px" }} />
+        <div
+          className="demo-logo"
+          style={{
+            display: "flex",
+            gap: "15px",
+            flexWrap: "wrap",
+            alignItems: "center",
+            maxWidth: "100%",
+            overflow: "hidden",
+          }}
+        >
+          <img
+            src={logoAjuntament}
+            alt="Logo Ayuntament de valencia"
+            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+          />
+          <img
+            src={logoVIC}
+            alt="Logo Valencia Innovation Capital"
+            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+          />
+          <img
+            src={logoSV}
+            alt="Logo Startup Valencia"
+            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+          />
         </div>
         <div>
           <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
