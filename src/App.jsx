@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import MainLayout from "./components/Layout/MainLayout";
 import StartupDashboard from "./components/Startups/Dashboard/StartupDashboard";
+import MentorDashboard from "./components/Mentors/Dashboard/MentorDashboard";
 
 function App() {
   const userRole = "startup"; //CAMBIAR CUANDO ESTÉ INTEGRADO AUTH
@@ -26,8 +27,8 @@ function App() {
           <Route path="/" element={<Navigate to={getRedirectPath()} />} />
           <Route path="/" element={<MainLayout />}>
             <Route path="startup" element={<StartupDashboard />} />
-            {/* <Route path="mentor" element={<MentorDashboard />} />
-          <Route path="admin" element={<AdminDashboard />} /> */}
+            <Route path="mentor" element={<MentorDashboard />} />
+            {/*  <Route path="admin" element={<AdminDashboard />} />  */}
           </Route>
         </Routes>
       </BrowserRouter>
