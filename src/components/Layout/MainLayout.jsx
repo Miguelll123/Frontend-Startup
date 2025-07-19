@@ -57,7 +57,7 @@ export default function MainLayout({ children }) {
           <img src={logoSV} alt="Logo Startup Valencia" style={{ height: "40px" }} />
         </div>
         <div>
-          <h1 style={{ margin: 0 }}>Startup Seed Program</h1>
+          <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
         </div>
       </Header>
 
