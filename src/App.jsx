@@ -7,7 +7,7 @@ console.log("App.jsx loaded");
 function App() {
   return (
     <div>
-      {/*       <Navbar /> */}
+      <Navbar />
       <Landing />
     </div>
   );
