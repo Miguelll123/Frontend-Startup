@@ -1,0 +1,20 @@
+.contact-card {
+  background-color: var(--main-gradient) !important;
+}
+
+.contact-card-title {
+  color: white;
+  font-weight: bold;
+}
+
+.contact-card-description {
+  color: #fffdfd;
+}
+
+.contact-card .ant-card-actions {
+  background-color: var(--main-gradient);
+}
+
+.contact-card .ant-card-actions > li {
+  color: white; /* Cambia el color de los iconos */
+}

@@ -1,17 +1,35 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Startups/Home/Home";
 import MainLayout from "./components/Layout/MainLayout";
+import StartupDashboard from "./components/Startups/Dashboard/StartupDashboard";
 
 function App() {
+  const userRole = "startup"; //CAMBIAR CUANDO ESTÉ INTEGRADO AUTH
+
+  const getRedirectPath = () => {
+    switch (userRole) {
+      case "startup":
+        return "/startup";
+      case "mentor":
+        return "/mentor";
+      case "admin":
+        return "/admin";
+      default:
+        return "/";
+    }
+  };
+
   return (
     <>
       <BrowserRouter>
-        <MainLayout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </MainLayout>
+        <Routes>
+          <Route path="/" element={<Navigate to={getRedirectPath()} />} />
+          <Route path="/" element={<MainLayout />}>
+            <Route path="startup" element={<StartupDashboard />} />
+            {/* <Route path="mentor" element={<MentorDashboard />} />
+          <Route path="admin" element={<AdminDashboard />} /> */}
+          </Route>
+        </Routes>
       </BrowserRouter>
     </>
   );

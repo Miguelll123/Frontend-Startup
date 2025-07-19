@@ -15,4 +15,6 @@
 
   --main-gradient: linear-gradient(90deg, #1f0d1e, #070d34);
   --vertical-gradient: linear-gradient(180deg, #1f0d1e, #070d34);
+  --text-content: #070d34;
+  --title-content: #1f0d1e;
 }
