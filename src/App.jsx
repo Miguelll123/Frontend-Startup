@@ -6,6 +6,8 @@ import MentorDashboard from "./components/Mentors/Dashboard/MentorDashboard";
 import AuthLogin from "./components/Auth/AuthLogin";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 import { useSelector } from "react-redux";
+import TrainersList from "./components/Common/Trainers/TrainersList";
+import TrainerDetail from "./components/Common/Trainers/TrainerDetail";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -38,6 +40,12 @@ function App() {
               <Route path="startup" element={<StartupDashboard />} />
               <Route path="mentor" element={<MentorDashboard />} />
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
+              <Route path="startup/formadores" element={
+                <>
+                  <TrainersList />
+                  <TrainerDetail />
+                </>
+              } />
             </Route>
           </Route>
         </Routes>
