@@ -1,111 +1,118 @@
 import React from "react";
 import { Menu } from "antd";
-import { UserOutlined, LaptopOutlined, NotificationOutlined } from "@ant-design/icons";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  HomeOutlined,
+  BookOutlined,
+  TeamOutlined,
+  CalendarOutlined,
+  GlobalOutlined,
+} from "@ant-design/icons";
+import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
 
 const SideMenu = () => {
-  const items = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-    const key = String(index + 1);
-    return {
-      key: `sub${key}`,
-      icon: React.createElement(icon),
-      label: `subnav ${key}`,
-      children: Array.from({ length: 4 }).map((_, j) => {
-        const subKey = index * 4 + j + 1;
-        return {
-          key: `${subKey}`,
-          label: `option${subKey}`,
-        };
-      }),
-    };
-  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const role = useSelector((state) => state.auth.user?.role);
+
+  const handleClick = ({ key }) => {
+    // Si es una pestaña del HOME → actualizamos tab
+    const homeTabs = ["info", "faqs", "mas-info", "perfil"];
+    if (homeTabs.includes(key)) {
+      const tabKeyMap = {
+        info: "1",
+        faqs: "2",
+        "mas-info": "3",
+        perfil: "4",
+      };
+      dispatch(setActiveTabKey(tabKeyMap[key]));
+      navigate(`/${role}/home`);
+    } else {
+      // Si no es parte de HOME, simplemente navegamos
+      navigate(`/${role}/${key}`);
+    }
+  };
+
+  const startupItems = [
+    {
+      key: "home",
+      icon: <HomeOutlined />,
+      label: "HOME",
+      children: [
+        { key: "info", label: "Info general" },
+        { key: "faqs", label: "FAQs" },
+        { key: "mas-info", label: "Más información" },
+        { key: "perfil", label: "Mi perfil" },
+      ],
+    },
+    {
+      key: "programa",
+      icon: <BookOutlined />,
+      label: "PROGRAMA",
+      children: [
+        { key: "material", label: "Material sesiones" },
+        { key: "formadores", label: "Formadores" },
+        { key: "startups", label: "Startups" },
+        { key: "agenda", label: "Agenda" },
+      ],
+    },
+    {
+      key: "mentorias",
+      icon: <TeamOutlined />,
+      label: "MENTORÍAS",
+      children: [
+        { key: "mismentorias", label: "Mis mentorías" },
+        { key: "mentores", label: "Mentores" },
+      ],
+    },
+    {
+      key: "eventos",
+      icon: <GlobalOutlined />,
+      label: "EVENTOS Y NETWORKING",
+      children: [
+        { key: "networking", label: "Actividades networking" },
+        { key: "eventos", label: "Eventos internacionales" },
+      ],
+    },
+  ];
+
+  const mentorItems = [
+    {
+      key: "home",
+      icon: <HomeOutlined />,
+      label: "HOME",
+      children: [
+        { key: "info", label: "Info general" },
+        { key: "faqs", label: "FAQs" },
+        { key: "mas-info", label: "Más información" },
+        { key: "perfil", label: "Mi perfil" },
+      ],
+    },
+    {
+      key: "startups",
+      icon: <TeamOutlined />,
+      label: "STARTUPS",
+    },
+    {
+      key: "mismentorias",
+      icon: <BookOutlined />,
+      label: "MIS MENTORÍAS",
+    },
+  ];
+
+  const items = role === "startup" ? startupItems : mentorItems;
 
   return (
     <Menu
       mode="inline"
       theme="dark"
-      defaultSelectedKeys={["1"]}
-      defaultOpenKeys={["sub1"]}
+      defaultSelectedKeys={["info"]}
       style={{ height: "100%", borderRight: 0 }}
       items={items}
+      onClick={handleClick}
     />
   );
 };
 
 export default SideMenu;
-
-//PARA CUANDO ESTÉ EL AUTH
-
-/* import React from "react";
-import { Menu } from "antd";
-import { useSelector } from "react-redux";
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-  HomeOutlined,
-  TeamOutlined,
-} from "@ant-design/icons";
-
-const SideMenu = () => {
-  const role = useSelector((state) => state.user.role); // ← obtiene el rol
-
-  let items = [];
-
-  if (role === "startup") {
-    items = [
-      {
-        key: "dashboard",
-        icon: <HomeOutlined />,
-        label: "Panel de startup",
-      },
-      {
-        key: "resources",
-        icon: <LaptopOutlined />,
-        label: "Recursos",
-      },
-    ];
-  } else if (role === "mentor") {
-    items = [
-      {
-        key: "dashboard",
-        icon: <HomeOutlined />,
-        label: "Panel de mentor",
-      },
-      {
-        key: "mentoring",
-        icon: <TeamOutlined />,
-        label: "Sesiones",
-      },
-    ];
-  } else if (role === "admin") {
-    items = [
-      {
-        key: "dashboard",
-        icon: <HomeOutlined />,
-        label: "Panel de admin",
-      },
-      {
-        key: "usuarios",
-        icon: <UserOutlined />,
-        label: "Gestión de usuarios",
-      },
-      {
-        key: "config",
-        icon: <NotificationOutlined />,
-        label: "Configuración",
-      },
-    ];
-  }
-
-  return (
-    <Menu
-      mode="inline"
-      theme="dark"
-      defaultSelectedKeys={["dashboard"]}
-      style={{ height: "100%", borderRight: 0 }}
-      items={items}
-    />
-  );
-};
-
-export default SideMenu; */

@@ -5,9 +5,10 @@ import StartupDashboard from "./components/Startups/Dashboard/StartupDashboard";
 import MentorDashboard from "./components/Mentors/Dashboard/MentorDashboard";
 import AuthLogin from "./components/Auth/AuthLogin";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import { useSelector } from "react-redux";
 
 function App() {
-  const userRole = "startup"; //CAMBIAR CUANDO ESTÉ INTEGRADO AUTH
+  const userRole = useSelector((state) => state.auth.user?.role);
 
   const getRedirectPath = () => {
     switch (userRole) {
