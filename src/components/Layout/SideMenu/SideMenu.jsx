@@ -27,7 +27,7 @@ const SideMenu = () => {
         perfil: "4",
       };
       dispatch(setActiveTabKey(tabKeyMap[key]));
-      navigate(`/${role}/home`);
+      navigate(`/${role}`);
     } else {
       // Si no es parte de HOME, simplemente navegamos
       navigate(`/${role}/${key}`);
