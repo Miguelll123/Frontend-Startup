@@ -1,32 +1,48 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Startups/Home/Home";
 import MainLayout from "./components/Layout/MainLayout";
+import StartupDashboard from "./components/Startups/Dashboard/StartupDashboard";
+import MentorDashboard from "./components/Mentors/Dashboard/MentorDashboard";
 import AuthLogin from "./components/Auth/AuthLogin";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
+import { useSelector } from "react-redux";
 
 function App() {
+  const userRole = useSelector((state) => state.auth.user?.role);
+
+  const getRedirectPath = () => {
+    switch (userRole) {
+      case "startup":
+        return "/startup";
+      case "mentor":
+        return "/mentor";
+      case "admin":
+        return "/admin";
+      default:
+        return "/";
+    }
+  };
+
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Ruta pública para login */}
-        <Route path="/login" element={<AuthLogin />} />
-        {/* Rutas privadas, protegidas por autenticación */}
-        <Route
-          path="/*"
-          element={
-            <ProtectedRoute>
-              <MainLayout>
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  {/* Aquí puedes añadir más rutas privadas */}
-                </Routes>
-              </MainLayout>
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Routes>
+          {/* Ruta pública */}
+          <Route path="/login" element={<AuthLogin />} />
+
+          {/* Rutas protegidas */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<MainLayout />}>
+              {/* Redirección dinámica al index */}
+              <Route index element={<Navigate to={getRedirectPath()} />} />
+              <Route path="startup" element={<StartupDashboard />} />
+              <Route path="mentor" element={<MentorDashboard />} />
+              {/* <Route path="admin" element={<AdminDashboard />} /> */}
+            </Route>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

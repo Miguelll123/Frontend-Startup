@@ -1,41 +1,43 @@
 import React, { useState } from "react";
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
 import { Layout, Menu, theme } from "antd";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+  LaptopOutlined,
+  NotificationOutlined,
+} from "@ant-design/icons";
+import { Outlet } from "react-router-dom";
 import logoAjuntament from "../../assets/Logo_ajuntamentValencia.png";
 import logoVIC from "../../assets/Logo_VIC.png";
 import logoSV from "../../assets/Logo_SV.png";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import "./mainLayout.css";
+import SideMenu from "./SideMenu/SideMenu";
 
 const { Header, Content, Sider } = Layout;
 
-const items1 = ["1", "2", "3"].map((key) => ({
-  key,
-  label: `nav ${key}`,
-}));
-
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-  const key = String(index + 1);
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-    children: Array.from({ length: 4 }).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: `${subKey}`,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
-
-export default function MainLayout({ children }) {
+export default function MainLayout() {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
   const [collapsed, setCollapsed] = useState(false);
+
+  const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
+    const key = String(index + 1);
+    return {
+      key: `sub${key}`,
+      icon: React.createElement(icon),
+      label: `subnav ${key}`,
+      children: Array.from({ length: 4 }).map((_, j) => {
+        const subKey = index * 4 + j + 1;
+        return {
+          key: `${subKey}`,
+          label: `option${subKey}`,
+        };
+      }),
+    };
+  });
 
   return (
     <Layout style={{ minHeight: "100dvh" }}>
@@ -54,34 +56,13 @@ export default function MainLayout({ children }) {
       >
         <div
           className="demo-logo"
-          style={{
-            display: "flex",
-            gap: "15px",
-            flexWrap: "wrap",
-            alignItems: "center",
-            maxWidth: "100%",
-            overflow: "hidden",
-          }}
+          style={{ display: "flex", gap: "15px", flexWrap: "wrap", alignItems: "center" }}
         >
-          <img
-            src={logoAjuntament}
-            alt="Logo Ayuntament de valencia"
-            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
-          />
-          <img
-            src={logoVIC}
-            alt="Logo Valencia Innovation Capital"
-            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
-          />
-          <img
-            src={logoSV}
-            alt="Logo Startup Valencia"
-            style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
-          />
+          <img src={logoAjuntament} alt="Logo Ayuntament" style={{ height: "40px" }} />
+          <img src={logoVIC} alt="Logo VIC" style={{ height: "40px" }} />
+          <img src={logoSV} alt="Logo SV" style={{ height: "40px" }} />
         </div>
-        <div>
-          <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
-        </div>
+        <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
       </Header>
 
       <Layout>
@@ -92,38 +73,16 @@ export default function MainLayout({ children }) {
           onCollapse={(value) => setCollapsed(value)}
           trigger={
             collapsed ? (
-              <MenuUnfoldOutlined
-                style={{
-                  color: "white",
-                  fontSize: "24px",
-                }}
-              />
+              <MenuUnfoldOutlined style={{ color: "white", fontSize: "24px" }} />
             ) : (
-              <MenuFoldOutlined
-                style={{
-                  color: "white",
-                  fontSize: "24px",
-                }}
-              />
+              <MenuFoldOutlined style={{ color: "white", fontSize: "24px" }} />
             )
           }
         >
-          <Menu
-            mode="inline"
-            theme="dark"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            style={{ height: "100%", borderRight: 0 }}
-            items={items2}
-          />
+          <SideMenu />
         </Sider>
 
-        <Layout
-          style={{
-            padding: "0 24px 24px",
-            background: "var(--main-gradient)",
-          }}
-        >
+        <Layout style={{ padding: "0 24px 24px", background: "var(--main-gradient)" }}>
           <Content
             style={{
               padding: 24,
@@ -134,7 +93,7 @@ export default function MainLayout({ children }) {
               marginTop: "20px",
             }}
           >
-            {children}
+            <Outlet />
           </Content>
         </Layout>
       </Layout>

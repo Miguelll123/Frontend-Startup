@@ -1,31 +1,33 @@
 .auth-login-bg {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100dvh;
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #23214a;
+  background-color: var(--main-gradient);
+  border-top: #352e9e solid 1px;
 }
 
 .auth-login-form {
-  background: #2d295c;
+  background-color: white;
   padding: 32px;
   border-radius: 16px;
-  box-shadow: 0 4px 32px #0002;
+  box-shadow: 0 4px 32px rgba(245, 245, 245, 0.3);
   min-width: 340px;
-  max-width: 400px;
-  width: 100%;
+  max-width: 600px;
+  width: 70%;
+  z-index: 10;
+  box-sizing: border-box;
 }
 
 .auth-login-form h2 {
-  color: #b3aaff;
+  color: var(--title-content);
   text-align: center;
   margin-bottom: 24px;
 }
 
 .auth-login-form label {
-  color: #b3aaff;
+  color: var(--text-content);
   font-weight: 500;
 }
 
@@ -51,6 +53,7 @@
   margin-bottom: 12px;
   cursor: pointer;
   transition: background 0.2s;
+  font-size: 1.2rem;
 }
 
 .auth-login-form button:hover {
@@ -72,4 +75,10 @@
 .auth-login-form .register-link a {
   color: #b3aaff;
   text-decoration: underline;
-} 
+}
+
+.auth-login-form input,
+.auth-login-form button {
+  width: 100%;
+  box-sizing: border-box;
+}

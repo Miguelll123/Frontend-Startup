@@ -38,33 +38,28 @@ const AuthLogin = () => {
   }, [isSuccess, isError, message, dispatch]);
 
   // Redirección si ya está logueado
+  const roleRoutes = {
+    mentor: "/mentor",
+    startup: "/startup",
+    /* admin: "/admin", // en caso de añadirlo */
+  };
+
   useEffect(() => {
+    if (!user && !token) return;
     if (user && token) {
-      if (user.role === "mentor") {
-        navigate("/mentors/dashboard", { replace: true });
-      } else if (user.role === "startup") {
-        navigate("/startups/dashboard", { replace: true });
-      } else {
-        navigate("/", { replace: true });
-      }
+      navigate(roleRoutes[user.role] || "/", { replace: true });
     }
   }, [user, token, navigate]);
 
   return (
     <>
-      <Header />
       <div className="auth-login-bg">
+        <Header />
         <form className="auth-login-form" onSubmit={handleSubmit}>
           <h2>Iniciar Sesión</h2>
           <div>
             <label>Correo Electrónico:</label>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" name="email" value={form.email} onChange={handleChange} required />
           </div>
           <div>
             <label>Contraseña:</label>
@@ -78,9 +73,9 @@ const AuthLogin = () => {
           </div>
           {isError && <div className="error-message">{message}</div>}
           <button type="submit">Entrar</button>
-          <div className="register-link">
-            ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
-          </div>
+          {/*         <div className="register-link">
+          ¿No tienes cuenta? <a href="/register">Regístrate aquí</a>
+        </div> */}
         </form>
       </div>
     </>
