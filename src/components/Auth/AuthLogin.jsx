@@ -38,16 +38,17 @@ const AuthLogin = () => {
   }, [isSuccess, isError, message, dispatch]);
 
   // Redirección si ya está logueado
-  if (user && token) {
-    if (user.role === "mentor") {
-      navigate("/mentors/dashboard", { replace: true });
-    } else if (user.role === "startup") {
-      navigate("/startups/dashboard", { replace: true });
-    } else {
-      navigate("/", { replace: true });
+  useEffect(() => {
+    if (user && token) {
+      if (user.role === "mentor") {
+        navigate("/mentors/dashboard", { replace: true });
+      } else if (user.role === "startup") {
+        navigate("/startups/dashboard", { replace: true });
+      } else {
+        navigate("/", { replace: true });
+      }
     }
-    return null;
-  }
+  }, [user, token, navigate]);
 
   return (
     <>

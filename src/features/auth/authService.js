@@ -13,9 +13,9 @@ const login = async (userData) => {
 
 const logout = async () => {
   const token = localStorage.getItem("token");
-  const res = await axios.delete(`${API_URL}/logout`, {
+  const res = await axios.post(`${API_URL}/logout`, {}, {
     headers: {
-      Authorization: token,
+      Authorization: `Bearer ${token}`,
     },
   });
   if (res.data) {
