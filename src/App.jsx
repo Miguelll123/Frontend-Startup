@@ -3,6 +3,8 @@ import "./App.css";
 import MainLayout from "./components/Layout/MainLayout";
 import StartupDashboard from "./components/Startups/Dashboard/StartupDashboard";
 import MentorDashboard from "./components/Mentors/Dashboard/MentorDashboard";
+import AuthLogin from "./components/Auth/AuthLogin";
+import ProtectedRoute from "./components/Common/ProtectedRoute";
 
 function App() {
   const userRole = "startup"; //CAMBIAR CUANDO ESTÉ INTEGRADO AUTH
@@ -24,11 +26,18 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Navigate to={getRedirectPath()} />} />
-          <Route path="/" element={<MainLayout />}>
-            <Route path="startup" element={<StartupDashboard />} />
-            <Route path="mentor" element={<MentorDashboard />} />
-            {/*  <Route path="admin" element={<AdminDashboard />} />  */}
+          {/* Ruta pública */}
+          <Route path="/login" element={<AuthLogin />} />
+
+          {/* Rutas protegidas */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<MainLayout />}>
+              {/* Redirección dinámica al index */}
+              <Route index element={<Navigate to={getRedirectPath()} />} />
+              <Route path="startup" element={<StartupDashboard />} />
+              <Route path="mentor" element={<MentorDashboard />} />
+              {/* <Route path="admin" element={<AdminDashboard />} /> */}
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>
