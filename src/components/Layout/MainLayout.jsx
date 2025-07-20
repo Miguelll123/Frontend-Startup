@@ -12,9 +12,9 @@ import logoAjuntament from "../../assets/Logo_ajuntamentValencia.png";
 import logoVIC from "../../assets/Logo_VIC.png";
 import logoSV from "../../assets/Logo_SV.png";
 import "./mainLayout.css";
-import SideMenu from "./SideMenu/SideMenu";
+import Header from "./Header";
 
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 export default function MainLayout() {
   const {
@@ -41,30 +41,7 @@ export default function MainLayout() {
 
   return (
     <Layout style={{ minHeight: "100dvh" }}>
-      <Header
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background: "var(--main-gradient)",
-          color: "white",
-          padding: "10px 20px",
-          height: "auto",
-          boxSizing: "border-box",
-        }}
-      >
-        <div
-          className="demo-logo"
-          style={{ display: "flex", gap: "15px", flexWrap: "wrap", alignItems: "center" }}
-        >
-          <img src={logoAjuntament} alt="Logo Ayuntament" style={{ height: "40px" }} />
-          <img src={logoVIC} alt="Logo VIC" style={{ height: "40px" }} />
-          <img src={logoSV} alt="Logo SV" style={{ height: "40px" }} />
-        </div>
-        <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
-      </Header>
-
+      <Header />
       <Layout>
         <Sider
           width={200}
@@ -79,7 +56,14 @@ export default function MainLayout() {
             )
           }
         >
-          <SideMenu />
+          <Menu
+            mode="inline"
+            theme="dark"
+            defaultSelectedKeys={["1"]}
+            defaultOpenKeys={["sub1"]}
+            style={{ height: "100%", borderRight: 0 }}
+            items={items2}
+          />
         </Sider>
 
         <Layout style={{ padding: "0 24px 24px", background: "var(--main-gradient)" }}>

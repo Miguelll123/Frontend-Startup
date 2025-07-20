@@ -2,6 +2,7 @@ import React from "react";
 import logoAjuntament from "../../assets/Logo_ajuntamentValencia.png";
 import logoVIC from "../../assets/Logo_VIC.png";
 import logoSV from "../../assets/Logo_SV.png";
+import ProgramLogo from "../../../public/favicon.png";
 
 const Header = () => (
   <header
@@ -28,14 +29,27 @@ const Header = () => (
         overflow: "hidden",
       }}
     >
-      <img src={logoAjuntament} alt="Logo Ayuntament de valencia" style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }} />
-      <img src={logoVIC} alt="Logo Valencia Innovation Capital" style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }} />
-      <img src={logoSV} alt="Logo Startup Valencia" style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }} />
+      <img
+        src={logoAjuntament}
+        alt="Logo Ayuntament de valencia"
+        style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+      />
+      <img
+        src={logoVIC}
+        alt="Logo Valencia Innovation Capital"
+        style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+      />
+      <img
+        src={logoSV}
+        alt="Logo Startup Valencia"
+        style={{ height: "40px", maxWidth: "100%", flexShrink: 1 }}
+      />
     </div>
-    <div>
+    <div className="program-and-logo">
       <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
+      <img src={ProgramLogo} alt="Program Logo" />
     </div>
   </header>
 );
 
-export default Header; 
+export default Header;
