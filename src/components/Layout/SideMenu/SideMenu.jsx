@@ -72,7 +72,7 @@ const SideMenu = () => {
       label: "EVENTOS Y NETWORKING",
       children: [
         { key: "networking", label: "Actividades networking" },
-        { key: "eventos", label: "Eventos internacionales" },
+        { key: "eventos-internacionales", label: "Eventos internacionales" },
       ],
     },
   ];

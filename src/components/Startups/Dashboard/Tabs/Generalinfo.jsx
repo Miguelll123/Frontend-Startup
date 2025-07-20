@@ -1,5 +1,6 @@
 import React from "react";
 import MyMap from "../Map/map";
+import AuthLogout from "../../../Auth/AuthLogout";
 
 const Generalinfo = () => {
   return (
@@ -23,6 +24,7 @@ const Generalinfo = () => {
           Startup Valencia
         </p>
       </div>
+      <AuthLogout />
     </>
   );
 };

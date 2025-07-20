@@ -53,8 +53,8 @@ const AuthLogin = () => {
 
   return (
     <>
-      <Header />
       <div className="auth-login-bg">
+        <Header />
         <form className="auth-login-form" onSubmit={handleSubmit}>
           <h2>Iniciar Sesión</h2>
           <div>
