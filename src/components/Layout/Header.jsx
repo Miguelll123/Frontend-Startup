@@ -2,6 +2,7 @@ import React from "react";
 import logoAjuntament from "../../assets/Logo_ajuntamentValencia.png";
 import logoVIC from "../../assets/Logo_VIC.png";
 import logoSV from "../../assets/Logo_SV.png";
+import programLogo from "../../assets/ProgramLogo.png";
 
 const Header = () => (
   <header
@@ -46,7 +47,7 @@ const Header = () => (
     </div>
     <div className="program-and-logo">
       <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
-      <img src="/favicon.png" alt="Program Logo" />
+      <img src={programLogo} alt="Program Logo" />
     </div>
   </header>
 );
