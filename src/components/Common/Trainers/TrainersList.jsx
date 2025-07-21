@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTrainers, getTrainerDetail } from "../../../features/trainers/trainerSlice";
 import TrainerCard from "./TrainerCard";
+import TrainerDetail from "./TrainerDetail";
 
 const TrainersList = () => {
   const dispatch = useDispatch();
@@ -15,16 +16,20 @@ const TrainersList = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
-      {list.map((trainer) => (
-        <TrainerCard
-          key={trainer._id}
-          trainer={trainer}
-          onClick={() => dispatch(getTrainerDetail(trainer._id))}
-        />
-      ))}
-    </div>
+    <>
+      <h2>Conoce a los formadores del programa</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 24 }}>
+        {list.map((trainer) => (
+          <TrainerCard
+            key={trainer._id}
+            trainer={trainer}
+            onClick={() => dispatch(getTrainerDetail(trainer._id))}
+          />
+        ))}
+      </div>
+      <TrainerDetail />
+    </>
   );
 };
 
-export default TrainersList; 
+export default TrainersList;

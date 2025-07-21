@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-const API_URL = 'http://localhost:8080/startup/'
+const API_URL = "http://localhost:8080/startup/";
 
 function ParticipantsList() {
   const [startups, setStartups] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(API_URL)
+    axios
+      .get(API_URL)
       .then((res) => {
         setStartups(res.data.startup); // Porque tu backend devuelve { startup: [...] }
         setLoading(false);
       })
       .catch((err) => {
-        console.error('Error al obtener las startups:', err);
+        console.error("Error al obtener las startups:", err);
         setLoading(false);
       });
   }, []);

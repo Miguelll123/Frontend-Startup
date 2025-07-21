@@ -41,14 +41,33 @@ const TrainerDetail = () => {
           <h2 style={{ margin: "12px 0 8px 0" }}>
             {selected.name || selected.firstName + " " + selected.lastName}
           </h2>
-          <p style={{ margin: 0 }}><b>Puesto:</b> {selected.position || selected.role}</p>
-          <p style={{ margin: 0 }}><b>Empresa:</b> {selected.company}</p>
-          <p style={{ margin: 0 }}><b>Email:</b> {selected.email}</p>
-          <p style={{ margin: 0 }}><b>Bio:</b> {selected.bio || "Sin descripción"}</p>
+          <p style={{ margin: 0 }}>
+            <b>Puesto:</b> {selected.position || selected.role}
+          </p>
+          <p style={{ margin: 0 }}>
+            <b>Empresa:</b> {selected.company}
+          </p>
+          <p style={{ margin: 0 }}>
+            <b>Email:</b> {selected.email}
+          </p>
+          <p style={{ margin: 0 }}>
+            {selected.linkedin ? (
+              <a
+                href={selected.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#fff", textDecoration: "underline" }}
+              >
+                Perfil LinkedIn
+              </a>
+            ) : (
+              "Sin descripción"
+            )}
+          </p>
         </div>
       ) : null}
     </Modal>
   );
 };
 
-export default TrainerDetail; 
+export default TrainerDetail;

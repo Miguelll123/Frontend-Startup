@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Modal } from "antd";
+import Card from "../../../components/Elements/Card/Card";
+import StartupModal from "./StartupModal/StartupModal";
 
 const API_URL = "http://localhost:8080/startup";
 
@@ -23,17 +24,12 @@ function ParticipantDetail() {
       });
   }, []);
 
-  const showModal = (startup) => {
+  const handleOpenModal = (startup) => {
     setSelectedStartup(startup);
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-    setSelectedStartup(null);
-  };
-
-  const handleCancel = () => {
+  const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedStartup(null);
   };
@@ -46,59 +42,17 @@ function ParticipantDetail() {
       <h2>Startups</h2>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {startups.map((s) => (
-          <div
+          <Card
             key={s._id}
-            style={{
-              border: "1px solid #ddd",
-              borderRadius: "8px",
-              padding: "1rem",
-              width: "200px",
-              textAlign: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => showModal(s)}
-          >
-            {s.logo && (
-              <img
-                src={s.logo}
-                alt={s.company}
-                style={{ width: "100px", height: "100px", objectFit: "contain" }}
-              />
-            )}
-            <h3 style={{ color: "#1890ff" }}>{s.company}</h3>
-          </div>
+            title={s.company}
+            hoverImage={s.logo}
+            hoverText={s.sector || "Sin sector"}
+            onClick={() => handleOpenModal(s)}
+          />
         ))}
       </div>
 
-      {/* 🔽 Modal con información de la startup seleccionada */}
-      <Modal
-        title={selectedStartup?.company}
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        {selectedStartup && (
-          <>
-            {selectedStartup.logo && (
-              <img
-                src={selectedStartup.logo}
-                alt="logo"
-                style={{ width: "120px", marginBottom: "1rem" }}
-              />
-            )}
-            <p><strong>Descripción:</strong> {selectedStartup.description || 'No disponible'}</p>
-            <p><strong>Sector:</strong> {selectedStartup.sector}</p>
-            <p><strong>Página web:</strong> {selectedStartup.website || 'Desconocido'}</p>
-            <p><strong>Estado Startup:</strong> {selectedStartup.stage || 'Desconocido'}</p>
-            <p><strong>Rondas Levantadas:</strong> {selectedStartup.roundsRaised || 'Desconocido'}</p>
-            <p><strong>Premios:</strong> {selectedStartup.awards || 'Desconocido'}</p>
-            <p><strong>Contacto:</strong> {selectedStartup.contact || 'No disponible'}</p>
-            <p><strong>Puesto de trabajo:</strong> {selectedStartup.jobTitle || 'No disponible'}</p>
-            <p><strong>Correo:</strong> {selectedStartup.email || 'Desconocido'}</p>
-          </>
-        )}
-      </Modal>
+      <StartupModal open={isModalOpen} onClose={handleCloseModal} startup={selectedStartup} />
     </div>
   );
 }

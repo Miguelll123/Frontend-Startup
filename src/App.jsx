@@ -7,7 +7,6 @@ import AuthLogin from "./components/Auth/AuthLogin";
 import ProtectedRoute from "./components/Common/ProtectedRoute";
 import { useSelector } from "react-redux";
 import TrainersList from "./components/Common/Trainers/TrainersList";
-import TrainerDetail from "./components/Common/Trainers/TrainerDetail";
 import Mentors from "./components/Startups/Mentoring/Mentors/Mentors";
 import ParticipantsList from "./components/Common/Participants/ParticipantsList";
 import ParticipantDetail from "./components/Common/Participants/ParticipantDetail";
@@ -54,12 +53,7 @@ function App() {
               <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
-              <Route path="startup/formadores" element={
-                <>
-                  <TrainersList />
-                  <TrainerDetail />
-                </>
-              } />
+              <Route path="startup/formadores" element={<TrainersList />} />
             </Route>
           </Route>
         </Routes>
