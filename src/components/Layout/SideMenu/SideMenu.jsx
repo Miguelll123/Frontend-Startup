@@ -8,6 +8,8 @@ import {
   TeamOutlined,
   CalendarOutlined,
   GlobalOutlined,
+  QuestionCircleOutlined,
+  ApartmentOutlined,
 } from "@ant-design/icons";
 import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
 
@@ -17,20 +19,26 @@ const SideMenu = () => {
   const role = useSelector((state) => state.auth.user?.role);
 
   const handleClick = ({ key }) => {
-    // Si es una pestaña del HOME → actualizamos tab
     const homeTabs = ["info", "faqs", "mas-info", "perfil"];
-    if (homeTabs.includes(key)) {
-      const tabKeyMap = {
-        info: "1",
-        faqs: "2",
-        "mas-info": "3",
-        perfil: "4",
-      };
-      dispatch(setActiveTabKey(tabKeyMap[key]));
+    const tabKeyMap = {
+      info: "1",
+      faqs: "2",
+      "mas-info": "3",
+      perfil: "4",
+    };
+
+    // Mapear keys internas duplicadas (solo en admin)
+    const routeKeyMap = {
+      "networking-2": "networking",
+    };
+
+    const resolvedKey = routeKeyMap[key] || key;
+
+    if (homeTabs.includes(resolvedKey)) {
+      dispatch(setActiveTabKey(tabKeyMap[resolvedKey]));
       navigate(`/${role}`);
     } else {
-      // Si no es parte de HOME, simplemente navegamos
-      navigate(`/${role}/${key}`);
+      navigate(`/${role}/${resolvedKey}`);
     }
   };
 
@@ -77,7 +85,7 @@ const SideMenu = () => {
     },
   ];
 
-  const mentorItems = [
+ const mentorItems = [
     {
       key: "home",
       icon: <HomeOutlined />,
@@ -101,13 +109,57 @@ const SideMenu = () => {
     },
   ];
 
-  const items = role === "startup" ? startupItems : mentorItems;
+
+  const adminItems = [
+    {
+      key: "home",
+      icon: <HomeOutlined />,
+      label: "HOME",
+    },
+    {
+      key: "material",
+      icon: <BookOutlined />,
+      label: "Módulos y sesiones",
+    },
+    {
+      key: "formadores",
+      icon: <TeamOutlined />,
+      label: "Formadores",
+    },
+    {
+      key: "startups",
+      icon: <ApartmentOutlined />,
+      label: "Startups",
+    },
+    {
+      key: "networking",
+      icon: <CalendarOutlined />,
+      label: "Networking",
+    },
+    {
+      key: "mentoring",
+      icon: <TeamOutlined />,
+      label: "Mentoring",
+    },
+  ];
+
+  const items =
+    role === "mentor"
+      ? mentorItems
+      : role === "startup"
+      ? startupItems
+      : role === "admin"
+      ? adminItems
+      : [];
+
+  const currentPath = window.location.pathname.split("/").pop();
 
   return (
     <Menu
       mode="inline"
       theme="dark"
-      defaultSelectedKeys={["info"]}
+      defaultSelectedKeys={[currentPath]}
+      selectedKeys={[currentPath]}
       style={{ height: "100%", borderRight: 0 }}
       items={items}
       onClick={handleClick}

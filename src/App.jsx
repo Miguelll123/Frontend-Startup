@@ -12,6 +12,7 @@ import ParticipantDetail from "./components/Common/Participants/ParticipantDetai
 import ModulesList from "./components/Common/Modules/ModulesList";
 import SessionDetail from "./components/Common/Modules/SessionDetail";
 import NetworkingList from "./components/Startups/Networking/NetworkingList"
+import AdminDashboard from "./components/Admin/AdminDashboard";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -43,16 +44,23 @@ function App() {
               <Route index element={<Navigate to={getRedirectPath()} />} />
               <Route path="startup" element={<StartupDashboard />} />
               <Route path="startup/mentores" element={<Mentors />} />
+              <Route path="admin/mentoring" element={<Mentors />} />
               <Route path="mentor" element={<MentorDashboard />} />
               <Route path="startup/startups" element={<ParticipantDetail />} />
               <Route path="mentor/startups" element={<ParticipantDetail />} />
+              <Route path="admin/startups" element={<ParticipantDetail />} />
               <Route path="startup/material" element={<ModulesList />} />
               <Route path="mentor/material" element={<ModulesList />} />
               <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="admin/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="admin/material" element={<ModulesList />} />
               <Route path="startup/networking" element={<NetworkingList />} />
-              {/* <Route path="admin" element={<AdminDashboard />} /> */}
+              <Route path="admin/networking" element={<NetworkingList />} />
               <Route path="startup/formadores" element={<TrainersList />} />
+              <Route path="admin/formadores" element={<TrainersList />} />
+              <Route path="admin" element={<AdminDashboard />} />
+              <Route path="admin/home" element={<AdminDashboard />} />
             </Route>
           </Route>
         </Routes>
