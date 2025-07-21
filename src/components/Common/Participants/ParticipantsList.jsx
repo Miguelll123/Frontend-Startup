@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import ParticipantDetail from "./ParticipantDetail";
 
 const API_URL = "http://localhost:8080/startup/";
 
@@ -54,6 +55,7 @@ function ParticipantsList() {
           </div>
         ))}
       </div>
+      <ParticipantDetail />
     </div>
   );
 }
