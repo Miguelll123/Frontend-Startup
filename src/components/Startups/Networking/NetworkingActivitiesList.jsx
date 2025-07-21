@@ -21,13 +21,25 @@ const NetworkingActivitiesList = () => {
     key: activity._id,
     label: activity.title,
     children: (
-      <div className='networking-details'>
-        <p><b>Fecha:</b> {activity.date ? new Date(activity.date).toLocaleDateString() : '-'}</p>
-        <p><b>Horario:</b> {activity.schedule || '-'}</p>
-        <p><b>Lugar:</b> {activity.location || '-'}</p>
-        <p><b>Descripción:</b> {activity.description || '-'}</p>
-        <p><b>Asistencia:</b> {activity.attendance || '-'}</p>
-        <p><b>Formato:</b> {activity.format || '-'}</p>
+      <div className="networking-details">
+        {activity.date && (
+          <p><b>Fecha:</b> {new Date(activity.date).toLocaleDateString()}</p>
+        )}
+        {activity.schedule && (
+          <p><b>Horario:</b> {activity.schedule}</p>
+        )}
+        {activity.location && (
+          <p><b>Lugar:</b> {activity.location}</p>
+        )}
+        {activity.description && (
+          <p><b>Descripción:</b> {activity.description}</p>
+        )}
+        {activity.attendance && activity.attendance !== '-' && (
+          <p><b>Asistencia:</b> {activity.attendance}</p>
+        )}
+        {activity.format && (
+          <p><b>Formato:</b> {activity.format}</p>
+        )}
       </div>
     ),
   }));
