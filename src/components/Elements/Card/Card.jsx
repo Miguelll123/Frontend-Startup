@@ -12,7 +12,7 @@ const Card = ({ title, hoverText, hoverImage, onClick }) => {
         <div className="card-hover-content">
           {hoverImage && <img src={hoverImage} alt="Logo empresa" className="card-hover-image" />}
           {hoverText && <p className="card-hover-text">{hoverText}</p>}
-          <p className="card-hover-details">Clicar para más detalles</p>
+          <p className="card-hover-details">Click para más detalles</p>
         </div>
       </div>
     </div>
