@@ -10,6 +10,29 @@ const initialState = {
 };
 
 // Thunks
+
+export const fetchSessionsByMentor = createAsyncThunk(
+  "sessions/byMentor",
+  async (mentorId, thunkAPI) => {
+    try {
+      return await mentoringSessionService.getSessionsByMentor(mentorId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.msg || error.message);
+    }
+  }
+);
+
+export const fetchSessionsByStartup = createAsyncThunk(
+  "sessions/byStartup",
+  async (startupId, thunkAPI) => {
+    try {
+      return await mentoringSessionService.getSessionsByStartup(startupId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.msg || error.message);
+    }
+  }
+);
+
 export const fetchAllSessions = createAsyncThunk("sessions/getAll", async (_, thunkAPI) => {
   try {
     return await mentoringSessionService.getAllSessions();
@@ -82,6 +105,32 @@ export const mentoringSessionSlice = createSlice({
       .addCase(signStartup.fulfilled, (state, action) => {
         const idx = state.sessions.findIndex((s) => s._id === action.payload._id);
         if (idx !== -1) state.sessions[idx] = action.payload;
+      })
+      .addCase(fetchSessionsByMentor.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSessionsByMentor.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.sessions = action.payload;
+      })
+      .addCase(fetchSessionsByMentor.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(fetchSessionsByStartup.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchSessionsByStartup.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.sessions = action.payload;
+      })
+      .addCase(fetchSessionsByStartup.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
       });
   },
 });

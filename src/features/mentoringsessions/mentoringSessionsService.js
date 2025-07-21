@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/mentoringsession";
+const API_URL = "http://localhost:8080/mentoringsessions";
 
 // Obtener todas las sesiones (para admin)
 const getAllSessions = async () => {
