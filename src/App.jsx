@@ -8,6 +8,11 @@ import ProtectedRoute from "./components/Common/ProtectedRoute";
 import { useSelector } from "react-redux";
 import TrainersList from "./components/Common/Trainers/TrainersList";
 import TrainerDetail from "./components/Common/Trainers/TrainerDetail";
+import Mentors from "./components/Startups/Mentoring/Mentors/Mentors";
+import ParticipantsList from "./components/Common/Participants/ParticipantsList";
+import ParticipantDetail from "./components/Common/Participants/ParticipantDetail";
+import ModulesList from "./components/Common/Modules/ModulesList";
+import SessionDetail from "./components/Common/Modules/SessionDetail";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -38,7 +43,16 @@ function App() {
               {/* Redirección dinámica al index */}
               <Route index element={<Navigate to={getRedirectPath()} />} />
               <Route path="startup" element={<StartupDashboard />} />
+              <Route path="startup/mentores" element={<Mentors />} />
               <Route path="mentor" element={<MentorDashboard />} />
+              <Route path="startup/startups" element={<ParticipantsList />} />
+              <Route path="mentor/startups" element={<ParticipantsList />} />
+              <Route path="startup/startups/:id" element={<ParticipantDetail />} />
+              <Route path="mentor/startups/:id" element={<ParticipantDetail />} />
+              <Route path="startup/material" element={<ModulesList />} />
+              <Route path="mentor/material" element={<ModulesList />} />
+              <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
               <Route path="startup/formadores" element={
                 <>
