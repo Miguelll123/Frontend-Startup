@@ -12,6 +12,10 @@ import ParticipantDetail from "./components/Common/Participants/ParticipantDetai
 import ModulesList from "./components/Common/Modules/ModulesList";
 import SessionDetail from "./components/Common/Modules/SessionDetail";
 import NetworkingList from "./components/Startups/Networking/NetworkingList"
+import Generalinfo from "./components/Startups/Dashboard/Tabs/Generalinfo";
+import ExternalDashboard from "./components/Startups/Dashboard/ExternalDashboard";
+
+console.log("App.jsx loaded");
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -41,10 +45,10 @@ function App() {
             <Route path="/" element={<MainLayout />}>
               {/* Redirección dinámica al index */}
               <Route index element={<Navigate to={getRedirectPath()} />} />
-              <Route path="startup" element={<StartupDashboard />} />
+              <Route path="startup" element={<Generalinfo />} />
               <Route path="startup/mentores" element={<Mentors />} />
               <Route path="mentor" element={<MentorDashboard />} />
-              <Route path="startup/startups" element={<ParticipantDetail />} />
+              <Route path="startup/startups" element={<ExternalDashboard />} />
               <Route path="mentor/startups" element={<ParticipantDetail />} />
               <Route path="startup/material" element={<ModulesList />} />
               <Route path="mentor/material" element={<ModulesList />} />
