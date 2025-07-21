@@ -10,6 +10,7 @@ import {
   GlobalOutlined,
   QuestionCircleOutlined,
   ApartmentOutlined,
+  UserAddOutlined,
 } from "@ant-design/icons";
 import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
 
@@ -140,6 +141,11 @@ const SideMenu = () => {
       key: "mentoring",
       icon: <TeamOutlined />,
       label: "Mentoring",
+    },
+    {
+      key: "invitar",
+      icon: <UserAddOutlined />,
+      label: "Dar de alta",
     },
   ];
 

@@ -13,6 +13,7 @@ import ModulesList from "./components/Common/Modules/ModulesList";
 import SessionDetail from "./components/Common/Modules/SessionDetail";
 import NetworkingList from "./components/Startups/Networking/NetworkingList"
 import AdminDashboard from "./components/Admin/AdminDashboard";
+import AdminInvite from "./components/Admin/AdminInvite";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -61,6 +62,7 @@ function App() {
               <Route path="admin/formadores" element={<TrainersList />} />
               <Route path="admin" element={<AdminDashboard />} />
               <Route path="admin/home" element={<AdminDashboard />} />
+              <Route path="admin/invitar" element={<AdminInvite />} />
             </Route>
           </Route>
         </Routes>
