@@ -45,7 +45,7 @@ function App() {
               <Route path="startup" element={<StartupDashboard />} />
               <Route path="startup/mentores" element={<Mentors />} />
               <Route path="mentor" element={<MentorDashboard />} />
-              <Route path="startup/startups" element={<ParticipantsList />} />
+              <Route path="startup/startups" element={<StartupDashboard />} />
               <Route path="mentor/startups" element={<ParticipantsList />} />
               <Route path="startup/startups/:id" element={<ParticipantDetail />} />
               <Route path="mentor/startups/:id" element={<ParticipantDetail />} />

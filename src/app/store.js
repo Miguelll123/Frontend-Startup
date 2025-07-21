@@ -3,6 +3,7 @@ import tab from "../features/startup/tabs/tabSlice";
 import auth from "../features/auth/authSlice";
 import trainers from "../features/trainers/trainerSlice"
 import mentoring from "../features/startup/mentoring/mentoringSlice";
+import startups from "../features/startups/startupSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     auth,
     trainers,
     mentoring,
+    startups,
   },
 });

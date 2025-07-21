@@ -1,0 +1,84 @@
+.dashboard-container {
+  padding: 2rem;
+  background-color: #1a1a2e;
+  color: white;
+  min-height: 100vh;
+}
+
+.dashboard-container h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  color: white;
+}
+
+section {
+  background: #2d295c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+/* Estilos para la tabla de Top Startups */
+.startups-table {
+  width: 100%;
+}
+
+.startup-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.startup-row:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para la tabla de contactos */
+.contacts-table {
+  width: 100%;
+}
+
+.contact-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 3fr;
+  padding: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-row:last-child {
+  border-bottom: none;
+}
+
+/* Estilos para las secciones de gráficos */
+.pie-chart {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1rem;
+  }
+
+  .contact-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .startup-row {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+} 
