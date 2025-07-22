@@ -14,6 +14,7 @@ import SessionDetail from "./components/Common/Modules/SessionDetail";
 import NetworkingList from "./components/Startups/Networking/NetworkingList"
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminInvite from "./components/Admin/AdminInvite";
+import AuthRegister from "./components/Auth/AuthRegister";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -37,7 +38,7 @@ function App() {
         <Routes>
           {/* Ruta pública */}
           <Route path="/login" element={<AuthLogin />} />
-
+          <Route path="/registro" element={<AuthRegister />} />
           {/* Rutas protegidas */}
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<MainLayout />}>
