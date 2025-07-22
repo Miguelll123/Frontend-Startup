@@ -52,6 +52,7 @@ function App() {
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="startup/formadores" element={<TrainersList />} />
               <Route path="mentor/mismentorias" element={<MentoringSessionList />} />
+              <Route path="startup/mismentorias" element={<MentoringSessionList />} />
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
             </Route>
           </Route>

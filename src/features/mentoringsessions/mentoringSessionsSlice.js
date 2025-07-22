@@ -9,8 +9,6 @@ const initialState = {
   message: "",
 };
 
-// Thunks
-
 export const fetchSessionsByMentor = createAsyncThunk(
   "sessions/byMentor",
   async (mentorId, thunkAPI) => {
@@ -28,6 +26,7 @@ export const fetchSessionsByStartup = createAsyncThunk(
     try {
       return await mentoringSessionService.getSessionsByStartup(startupId);
     } catch (error) {
+      console.error("Thunk fetchSessionsByStartup: Error capturado:", error);
       return thunkAPI.rejectWithValue(error.response?.data?.msg || error.message);
     }
   }

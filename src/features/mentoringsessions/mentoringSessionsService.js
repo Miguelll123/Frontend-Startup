@@ -16,8 +16,15 @@ const getSessionsByMentor = async (mentorId) => {
 
 // Obtener sesiones por startup
 const getSessionsByStartup = async (startupId) => {
-  const res = await axios.get(`${API_URL}/startup/${startupId}`);
-  return res.data.sessions;
+  try {
+    const url = `${API_URL}/startup/${startupId}`;
+    const res = await axios.get(url);
+    return res.data.sessions;
+  } catch (error) {
+    if (error.response) {
+    }
+    throw error;
+  }
 };
 
 // Crear nueva sesión
