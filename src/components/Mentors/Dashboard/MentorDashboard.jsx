@@ -5,6 +5,7 @@ import QnA from "./Tabs_mentor/QnA";
 import MoreInfo from "./Tabs_mentor/MoreInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
+import AuthLogout from "../../Auth/AuthLogout.jsx";
 
 const MentorDashboard = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const MentorDashboard = () => {
         items={items}
         size="large"
       />
+      <AuthLogout />
     </>
   );
 };

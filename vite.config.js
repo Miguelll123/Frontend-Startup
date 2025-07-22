@@ -5,7 +5,7 @@ export default defineConfig({
 plugins: [react()],
 server: {
 proxy: {
-'/api': 'http://localhost:8080', // Cambia a tu puerto del backend si es diferente
+'/api': 'http://localhost:8080', 
 },
 },
 });
