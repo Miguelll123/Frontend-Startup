@@ -15,12 +15,8 @@ const StartupDashboard = () => {
     { label: "Información general", key: "1", children: <Generalinfo /> },
     { label: "FAQs", key: "2", children: <QnA /> },
     { label: "Más información y contacto", key: "3", children: <MoreInfo /> },
-<<<<<<< HEAD
     { label: "Coworking La Harinera", key: "4", children: <CoworkingLaHarinera/> },
 
-=======
-    
->>>>>>> develop
   ];
 
   return (
