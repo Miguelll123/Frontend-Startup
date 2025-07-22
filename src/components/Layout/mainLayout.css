@@ -22,3 +22,34 @@ ul.ant-menu {
     height: 20px !important;
   }
 }
+
+
+  
+  /* Ajustar el header en móvil */
+  .ant-layout-header h1 {
+    font-size: 18px !important;
+  }
+  
+  .demo-logo {
+    gap: 8px !important;
+  }
+  
+  .demo-logo img {
+    height: 30px !important;
+  }
+
+
+/* Estilos para el Drawer en móvil */
+.ant-drawer-header {
+  background: var(--main-gradient) !important;
+  color: white !important;
+}
+
+.ant-drawer-title {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+.ant-drawer-close {
+  color: white !important;
+}

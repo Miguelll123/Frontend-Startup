@@ -11,7 +11,7 @@ import {
 } from "@ant-design/icons";
 import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
 
-const SideMenu = () => {
+const SideMenu = ({ onItemClick }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const role = useSelector((state) => state.auth.user?.role);
@@ -31,6 +31,11 @@ const SideMenu = () => {
     } else {
       // Si no es parte de HOME, simplemente navegamos
       navigate(`/${role}/${key}`);
+    }
+    
+    // Si se proporciona la función onItemClick (para cerrar Drawer en móvil)
+    if (onItemClick) {
+      onItemClick();
     }
   };
 

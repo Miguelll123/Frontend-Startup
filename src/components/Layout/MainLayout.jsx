@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { Layout, Menu, theme } from "antd";
+import React, { useState, useEffect } from "react";
+import { Layout, Menu, theme, Drawer } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
   LaptopOutlined,
   NotificationOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 import logoAjuntament from "../../assets/Logo_ajuntamentValencia.png";
@@ -23,6 +24,27 @@ export default function MainLayout() {
   } = theme.useToken();
 
   const [collapsed, setCollapsed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setCollapsed(false);
+      } else {
+        setCollapsed(true);
+      }
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+
 
   const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
     const key = String(index + 1);
@@ -64,24 +86,42 @@ export default function MainLayout() {
           <img src={logoSV} alt="Logo SV" style={{ height: "40px" }} />
         </div>
         <h1 style={{ margin: 0 }}>Seed Startup Program</h1>
+        
+        {/* Botón hamburguesa para móvil */}
+        {isMobile && (
+          <div
+            style={{
+              cursor: "pointer",
+              padding: "8px",
+              borderRadius: "4px",
+              background: "rgba(255,255,255,0.1)",
+            }}
+            onClick={() => setDrawerOpen(true)}
+          >
+            <MenuOutlined style={{ fontSize: "20px", color: "white" }} />
+          </div>
+        )}
       </Header>
 
       <Layout>
-        <Sider
-          width={200}
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-          trigger={
-            collapsed ? (
-              <MenuUnfoldOutlined style={{ color: "white", fontSize: "24px" }} />
-            ) : (
-              <MenuFoldOutlined style={{ color: "white", fontSize: "24px" }} />
-            )
-          }
-        >
-          <SideMenu />
-        </Sider>
+        {/* Sider solo visible en escritorio */}
+        {!isMobile && (
+          <Sider
+            width={200}
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+            trigger={
+              collapsed ? (
+                <MenuUnfoldOutlined style={{ color: "white", fontSize: "24px" }} />
+              ) : (
+                <MenuFoldOutlined style={{ color: "white", fontSize: "24px" }} />
+              )
+            }
+          >
+            <SideMenu onItemClick={() => {}} />
+          </Sider>
+        )}
 
         <Layout style={{ padding: "0 24px 24px", background: "var(--main-gradient)" }}>
           <Content
@@ -98,6 +138,20 @@ export default function MainLayout() {
           </Content>
         </Layout>
       </Layout>
+
+      {/* Drawer para móvil */}
+      {isMobile && (
+        <Drawer
+          title="Menú"
+          placement="left"
+          onClose={() => setDrawerOpen(false)}
+          open={drawerOpen}
+          width={280}
+          bodyStyle={{ padding: 0 }}
+        >
+          <SideMenu onItemClick={() => setDrawerOpen(false)} />
+        </Drawer>
+      )}
     </Layout>
   );
 }
