@@ -16,7 +16,7 @@ const MentoringSessionsList = () => {
   return (
     <div>
       <h2>Mis mentorías</h2>
-      <MentoringSessionList userId={userId} role={userRole} />
+      <MentoringSessionList userId={userId} role={userRole} isAdminView={userRole === "admin"} />
       {userRole === "mentor" && <CreateMentoringSession />}
     </div>
   );
