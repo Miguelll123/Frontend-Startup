@@ -1,16 +1,14 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getActivities } from './activityService';
-
-console.log('activitySlice.js loaded');
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getActivities } from "./activityService";
 
 const initialState = {
   list: [],
   isLoading: false,
   isError: false,
-  message: '',
+  message: "",
 };
 
-export const fetchActivities = createAsyncThunk('activity/fetchAll', async (_, thunkAPI) => {
+export const fetchActivities = createAsyncThunk("activity/fetchAll", async (_, thunkAPI) => {
   try {
     return await getActivities();
   } catch (error) {
@@ -19,7 +17,7 @@ export const fetchActivities = createAsyncThunk('activity/fetchAll', async (_, t
 });
 
 const activitySlice = createSlice({
-  name: 'activity',
+  name: "activity",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -27,7 +25,7 @@ const activitySlice = createSlice({
       .addCase(fetchActivities.pending, (state) => {
         state.isLoading = true;
         state.isError = false;
-        state.message = '';
+        state.message = "";
       })
       .addCase(fetchActivities.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -41,4 +39,4 @@ const activitySlice = createSlice({
   },
 });
 
-export default activitySlice.reducer; 
+export default activitySlice.reducer;

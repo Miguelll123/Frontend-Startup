@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Collapse, Spin, Alert } from 'antd';
-import { fetchActivities } from '../../../features/activity/activitySlice';
-import './NetworkingActivitiesList.css';
-
-console.log('NetworkingActivitiesList.jsx loaded');
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Collapse, Spin, Alert } from "antd";
+import { fetchActivities } from "../../../features/activity/activitySlice";
+import "./NetworkingActivitiesList.css";
 
 const NetworkingActivitiesList = () => {
   const dispatch = useDispatch();
@@ -15,7 +13,7 @@ const NetworkingActivitiesList = () => {
   }, [dispatch]);
 
   if (isLoading) return <Spin tip="Cargando actividades..." />;
-  if (isError) return <Alert type="error" message={message || 'Error al cargar actividades'} />;
+  if (isError) return <Alert type="error" message={message || "Error al cargar actividades"} />;
 
   const items = list.map((activity) => ({
     key: activity._id,
@@ -23,22 +21,34 @@ const NetworkingActivitiesList = () => {
     children: (
       <div className="networking-details">
         {activity.date && (
-          <p><b>Fecha:</b> {new Date(activity.date).toLocaleDateString()}</p>
+          <p>
+            <b>Fecha:</b> {new Date(activity.date).toLocaleDateString()}
+          </p>
         )}
         {activity.schedule && (
-          <p><b>Horario:</b> {activity.schedule}</p>
+          <p>
+            <b>Horario:</b> {activity.schedule}
+          </p>
         )}
         {activity.location && (
-          <p><b>Lugar:</b> {activity.location}</p>
+          <p>
+            <b>Lugar:</b> {activity.location}
+          </p>
         )}
         {activity.description && (
-          <p><b>Descripción:</b> {activity.description}</p>
+          <p>
+            <b>Descripción:</b> {activity.description}
+          </p>
         )}
-        {activity.attendance && activity.attendance !== '-' && (
-          <p><b>Asistencia:</b> {activity.attendance}</p>
+        {activity.attendance && activity.attendance !== "-" && (
+          <p>
+            <b>Asistencia:</b> {activity.attendance}
+          </p>
         )}
         {activity.format && (
-          <p><b>Formato:</b> {activity.format}</p>
+          <p>
+            <b>Formato:</b> {activity.format}
+          </p>
         )}
       </div>
     ),
@@ -52,4 +62,4 @@ const NetworkingActivitiesList = () => {
   );
 };
 
-export default NetworkingActivitiesList; 
+export default NetworkingActivitiesList;

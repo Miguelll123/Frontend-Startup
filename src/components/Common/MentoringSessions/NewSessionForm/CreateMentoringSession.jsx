@@ -42,7 +42,7 @@ const CreateMentoringSession = () => {
 
   const sigCanvas = useRef(null);
   const [signatureError, setSignatureError] = useState("");
-  const [activeKey, setActiveKey] = useState("1");
+  const [activeKey, setActiveKey] = useState(["1"]);
 
   useEffect(() => {
     dispatch(fetchStartups());
@@ -62,7 +62,7 @@ const CreateMentoringSession = () => {
     if (createError) {
       message.error(`Error al crear sesión: ${createMessage}`);
     }
-  }, [createSuccess, createError, createMessage, form]);
+  }, [createSuccess, createError, createMessage, form, dispatch]);
 
   const onFinish = async (values) => {
     if (!sigCanvas.current || sigCanvas.current.isEmpty()) {
@@ -134,11 +134,12 @@ const CreateMentoringSession = () => {
                     {startupsMessage}
                   </Option>
                 )}
-                {startups.map((startup) => (
-                  <Option key={startup._id} value={startup._id}>
-                    {startup.company}
-                  </Option>
-                ))}
+                {startups &&
+                  startups.map((startup) => (
+                    <Option key={startup._id} value={startup._id}>
+                      {startup.company}
+                    </Option>
+                  ))}
               </Select>
             </Form.Item>
 

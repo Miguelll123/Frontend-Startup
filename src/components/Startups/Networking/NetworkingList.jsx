@@ -1,8 +1,6 @@
-import React from 'react';
-import NetworkingActivitiesList from './NetworkingActivitiesList';
-
-console.log('NetworkingList.jsx loaded');
+import React from "react";
+import NetworkingActivitiesList from "./NetworkingActivitiesList";
 
 const NetworkingList = () => <NetworkingActivitiesList />;
 
-export default NetworkingList; 
+export default NetworkingList;

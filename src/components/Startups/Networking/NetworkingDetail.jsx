@@ -1,4 +1,3 @@
-import React from 'react';
-console.log('NetworkingDetail.jsx loaded');
+import React from "react";
 const NetworkingDetail = () => <div>Detalle de actividad (no usado, ver Collapse)</div>;
-export default NetworkingDetail; 
+export default NetworkingDetail;
