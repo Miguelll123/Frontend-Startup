@@ -32,7 +32,6 @@ export default function MainLayout() {
         setCollapsed(false);
       }
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);

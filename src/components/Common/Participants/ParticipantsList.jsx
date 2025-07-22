@@ -13,7 +13,7 @@ function ParticipantsList() {
     axios
       .get(API_URL)
       .then((res) => {
-        setStartups(res.data.startup); // Porque tu backend devuelve { startup: [...] }
+        setStartups(res.data.startup); 
         setLoading(false);
       })
       .catch((err) => {

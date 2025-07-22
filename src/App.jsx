@@ -12,6 +12,7 @@ import ParticipantDetail from "./components/Common/Participants/ParticipantDetai
 import ModulesList from "./components/Common/Modules/ModulesList";
 import SessionDetail from "./components/Common/Modules/SessionDetail";
 import MentoringSessionList from "./components/Common/MentoringSessions/MentoringSessions";
+import NetworkingList from "./components/Startups/Networking/NetworkingList";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -50,6 +51,7 @@ function App() {
               <Route path="mentor/material" element={<ModulesList />} />
               <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="startup/networking" element={<NetworkingList />} />
               <Route path="startup/formadores" element={<TrainersList />} />
               <Route path="mentor/mismentorias" element={<MentoringSessionList />} />
               <Route path="startup/mismentorias" element={<MentoringSessionList />} />
