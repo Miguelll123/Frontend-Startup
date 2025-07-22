@@ -11,7 +11,7 @@ import Mentors from "./components/Startups/Mentoring/Mentors/Mentors";
 import ParticipantDetail from "./components/Common/Participants/ParticipantDetail";
 import ModulesList from "./components/Common/Modules/ModulesList";
 import SessionDetail from "./components/Common/Modules/SessionDetail";
-import NetworkingList from "./components/Startups/Networking/NetworkingList"
+import NetworkingList from "./components/Startups/Networking/NetworkingList";
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminInvite from "./components/Admin/AdminInvite";
 import AuthRegister from "./components/Auth/AuthRegister";
@@ -58,7 +58,6 @@ function App() {
               <Route path="mentor/material" element={<ModulesList />} />
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="mentor/mismentorias" element={<MentoringSessionList />} />
-              <Route path="admin/mentoring" element={<Mentors />} />
               <Route path="admin/startups" element={<ParticipantDetail />} />
               <Route path="admin/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="admin/material" element={<ModulesList />} />
@@ -67,6 +66,15 @@ function App() {
               <Route path="admin" element={<AdminDashboard />} />
               <Route path="admin/home" element={<AdminDashboard />} />
               <Route path="admin/invitar" element={<AdminInvite />} />
+              <Route
+                path="admin/mentoring"
+                element={
+                  <>
+                    <MentoringSessionList /> <Mentors />
+                  </>
+                }
+              />
+              {/* <Route path="admin/mismentorias" element={<MentoringSessionList />} /> */}
 
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
             </Route>

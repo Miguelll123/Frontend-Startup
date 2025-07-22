@@ -4,12 +4,13 @@ import { Table, Space, Tag, Button } from "antd";
 import {
   fetchSessionsByMentor,
   fetchSessionsByStartup,
+  fetchAllSessions,
   signMentor,
   signStartup,
 } from "../../../features/mentoringsessions/mentoringSessionsSlice.js";
 import SignatureModal from "./SignatureModal/SignatureModal";
 
-const MentoringSessionList = ({ userId, role }) => {
+const MentoringSessionList = ({ userId, role, isAdminView = false }) => {
   const dispatch = useDispatch();
   const {
     sessions,
@@ -23,14 +24,17 @@ const MentoringSessionList = ({ userId, role }) => {
   const [currentSessionToSign, setCurrentSessionToSign] = useState(null);
 
   useEffect(() => {
-    if (userId && role) {
+    // Lógica para cargar sesiones basada en el rol o si es vista de admin
+    if (isAdminView) {
+      dispatch(fetchAllSessions());
+    } else if (userId && role) {
       if (role === "mentor") {
         dispatch(fetchSessionsByMentor(userId));
       } else if (role === "startup") {
         dispatch(fetchSessionsByStartup(userId));
       }
     }
-  }, [dispatch, userId, role, sessionsActionSuccess]);
+  }, [dispatch, userId, role, isAdminView, sessionsActionSuccess]);
 
   const openSignModal = (session) => {
     setCurrentSessionToSign(session);
@@ -127,10 +131,13 @@ const MentoringSessionList = ({ userId, role }) => {
 
           // Lógica de visibilidad del botón "Firmar"
           let showSignButton = false;
-          if (role === "mentor" && !record.mentorSigned.signed) {
-            showSignButton = true;
-          } else if (role === "startup" && !record.startupSigned.signed) {
-            showSignButton = true;
+          if (!isAdminView) {
+            // Solo si no es admin
+            if (role === "mentor" && !record.mentorSigned.signed) {
+              showSignButton = true;
+            } else if (role === "startup" && !record.startupSigned.signed) {
+              showSignButton = true;
+            }
           }
 
           return (
@@ -152,7 +159,20 @@ const MentoringSessionList = ({ userId, role }) => {
 
     const dynamicColumns = [];
 
-    if (role === "mentor") {
+    if (isAdminView) {
+      dynamicColumns.push({
+        title: "Mentor",
+        dataIndex: ["mentor", "companyName"], // Asumiendo que el backend lo devuelve así
+        key: "mentorCompanyName",
+        render: (companyName) => companyName || "N/A",
+      });
+      dynamicColumns.push({
+        title: "Startup",
+        dataIndex: ["startup", "company"],
+        key: "startupCompany",
+        render: (company) => company || "N/A",
+      });
+    } else if (role === "mentor") {
       dynamicColumns.push({
         title: "Startup",
         dataIndex: ["startup", "company"],
@@ -162,14 +182,14 @@ const MentoringSessionList = ({ userId, role }) => {
     } else if (role === "startup") {
       dynamicColumns.push({
         title: "Mentor",
-        dataIndex: ["mentor", "companyName"], // Usamos companyName para el nombre de la compañía del mentor
+        dataIndex: ["mentor", "companyName"],
         key: "mentorCompanyName",
         render: (companyName) => companyName || "N/A",
       });
     }
 
     return [...dynamicColumns, ...baseColumns];
-  }, [role, openSignModal, handleViewPdf]);
+  }, [role, openSignModal, handleViewPdf, isAdminView]);
 
   if (isLoading) return <p>Cargando sesiones...</p>;
   if (isError) return <p>Error: {message}</p>;
