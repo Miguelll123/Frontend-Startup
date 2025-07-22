@@ -16,6 +16,7 @@ import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminInvite from "./components/Admin/AdminInvite";
 import AuthRegister from "./components/Auth/AuthRegister";
 import MentoringSessionList from "./components/Common/MentoringSessions/MentoringSessions";
+import StartupSnapshot from "./components/Startups/Dashboard/StartupSnapshot";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -48,6 +49,7 @@ function App() {
               <Route path="startup" element={<StartupDashboard />} />
               <Route path="startup/mentores" element={<Mentors />} />
               <Route path="startup/startups" element={<ParticipantDetail />} />
+              <Route path="startup/startup-snapshot" element={<StartupSnapshot />} />
               <Route path="startup/material" element={<ModulesList />} />
               <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="startup/networking" element={<NetworkingList />} />

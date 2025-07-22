@@ -63,7 +63,7 @@ const SideMenu = () => {
         { key: "material", label: "Material sesiones" },
         { key: "formadores", label: "Formadores" },
         { key: "startups", label: "Startups" },
-        { key: "agenda", label: "Agenda" },
+        { key: "startup-snapshot", label: "Startup Snapshot" },
       ],
     },
     {
