@@ -52,7 +52,7 @@ const SideMenu = () => {
         { key: "info", label: "Info general" },
         { key: "faqs", label: "FAQs" },
         { key: "mas-info", label: "Más información" },
-        { key: "perfil", label: "Mi perfil" },
+        { key: "perfil", label: "Coworking La Harinera" },
       ],
     },
     {

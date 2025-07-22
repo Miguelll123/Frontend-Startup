@@ -5,6 +5,7 @@ import QnA from "./Tabs/QnA";
 import MoreInfo from "./Tabs/MoreInfo";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveTabKey } from "../../../features/startup/tabs/tabSlice.js";
+import CoworkingLaHarinera from "./Tabs/CoworkingLaHarinera.jsx";
 
 const StartupDashboard = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,8 @@ const StartupDashboard = () => {
     },
     { label: "FAQs", key: "2", children: <QnA /> },
     { label: "Más información y contacto", key: "3", children: <MoreInfo /> },
+    { label: "Coworking La Harinera", key: "4", children: <CoworkingLaHarinera/> },
+
   ];
 
   return (

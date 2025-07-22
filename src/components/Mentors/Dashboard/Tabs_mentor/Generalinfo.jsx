@@ -1,5 +1,6 @@
 import React from "react";
 import MyMap from "../../../Startups/Dashboard/Map/map";
+import AuthLogout from "../../../Auth/AuthLogout";
 
 const GeneralinfoMentor = () => {
   return (
@@ -20,6 +21,7 @@ const GeneralinfoMentor = () => {
           Startup Valencia
         </p>
       </div>
+      <AuthLogout />
     </>
   );
 };

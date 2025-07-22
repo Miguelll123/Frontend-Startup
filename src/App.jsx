@@ -15,6 +15,7 @@ import NetworkingList from "./components/Startups/Networking/NetworkingList"
 import AdminDashboard from "./components/Admin/AdminDashboard";
 import AdminInvite from "./components/Admin/AdminInvite";
 import AuthRegister from "./components/Auth/AuthRegister";
+import MentoringSessionList from "./components/Common/MentoringSessions/MentoringSessions";
 
 function App() {
   const userRole = useSelector((state) => state.auth.user?.role);
@@ -46,24 +47,28 @@ function App() {
               <Route index element={<Navigate to={getRedirectPath()} />} />
               <Route path="startup" element={<StartupDashboard />} />
               <Route path="startup/mentores" element={<Mentors />} />
-              <Route path="admin/mentoring" element={<Mentors />} />
-              <Route path="mentor" element={<MentorDashboard />} />
               <Route path="startup/startups" element={<ParticipantDetail />} />
-              <Route path="mentor/startups" element={<ParticipantDetail />} />
-              <Route path="admin/startups" element={<ParticipantDetail />} />
               <Route path="startup/material" element={<ModulesList />} />
-              <Route path="mentor/material" element={<ModulesList />} />
               <Route path="startup/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="startup/networking" element={<NetworkingList />} />
+              <Route path="startup/formadores" element={<TrainersList />} />
+              <Route path="startup/mismentorias" element={<MentoringSessionList />} />
+              <Route path="mentor" element={<MentorDashboard />} />
+              <Route path="mentor/startups" element={<ParticipantDetail />} />
+              <Route path="mentor/material" element={<ModulesList />} />
               <Route path="mentor/programa/sesion/:id" element={<SessionDetail />} />
+              <Route path="mentor/mismentorias" element={<MentoringSessionList />} />
+              <Route path="admin/mentoring" element={<Mentors />} />
+              <Route path="admin/startups" element={<ParticipantDetail />} />
               <Route path="admin/programa/sesion/:id" element={<SessionDetail />} />
               <Route path="admin/material" element={<ModulesList />} />
-              <Route path="startup/networking" element={<NetworkingList />} />
               <Route path="admin/networking" element={<NetworkingList />} />
-              <Route path="startup/formadores" element={<TrainersList />} />
               <Route path="admin/formadores" element={<TrainersList />} />
               <Route path="admin" element={<AdminDashboard />} />
               <Route path="admin/home" element={<AdminDashboard />} />
               <Route path="admin/invitar" element={<AdminInvite />} />
+
+              {/* <Route path="admin" element={<AdminDashboard />} /> */}
             </Route>
           </Route>
         </Routes>
