@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom'; 
 import axios from 'axios';
 import { Form, Input, Button, Select, Typography, Spin, Alert } from 'antd';
 
@@ -14,6 +14,7 @@ const AuthRegister = () => {
   const [startups, setStartups] = useState([]);
   const [message, setMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [registrationSuccess, setRegistrationSuccess] = useState(false); 
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -47,22 +48,21 @@ const AuthRegister = () => {
     setLoading(true);
     setErrorMessage('');
     setMessage('');
+    setRegistrationSuccess(false); 
 
     try {
       let payload = {
-        // 👉 CAMBIO CLAVE AQUÍ: Usamos roleFromUrl directamente para asegurar que el rol siempre esté definido
-        role: roleFromUrl, 
+        role: roleFromUrl,
         email: values.email,
         password: values.password,
         phone: values.phone,
         firstName: values.firstName,
         lastName: values.lastName,
         company: values.company,
-        // companyModel también debe basarse en roleFromUrl para consistencia
         companyModel: roleFromUrl === 'startup' ? 'startup' : 'mentoring',
       };
 
-      if (roleFromUrl === 'mentor') { // También usamos roleFromUrl aquí
+      if (roleFromUrl === 'mentor') {
         payload = {
           ...payload,
           position: values.position,
@@ -73,13 +73,18 @@ const AuthRegister = () => {
       console.log('Payload a enviar:', payload);
       const res = await axios.post('/api/auth/register', payload);
 
-      setMessage('¡Registro completado con éxito! Ahora puedes iniciar sesión.');
+      
+      setMessage('¡Registro completado con éxito!');
+      setRegistrationSuccess(true); 
       form.resetFields(['password', 'phone', 'firstName', 'lastName', 'company', 'position', 'linkedin']);
+      
+
     } catch (error) {
       console.error('Error durante el registro:', error);
-      console.log('Respuesta de error del backend:', error.response?.data); // Mantener para futuras depuraciones
+      console.log('Respuesta de error del backend:', error.response?.data);
       const errorMsg = error.response?.data?.msg || error.message || 'Error desconocido al registrar.';
       setErrorMessage('Error al registrar: ' + errorMsg);
+      setRegistrationSuccess(false); 
     } finally {
       setLoading(false);
     }
@@ -181,7 +186,24 @@ const AuthRegister = () => {
         </Form.Item>
       </Form>
 
-      {message && <Alert message={message} type="success" showIcon style={{ marginTop: '1rem' }} />}
+
+      {message && (
+        <Alert
+          message={
+            <span>
+              {message}{' '}
+              {registrationSuccess && (
+                <Link to="/login" style={{ color: '#1890ff', fontWeight: 'bold' }}>
+                  Haz clic aquí para iniciar sesión.
+                </Link>
+              )}
+            </span>
+          }
+          type="success"
+          showIcon
+          style={{ marginTop: '1rem' }}
+        />
+      )}
       {errorMessage && <Alert message={errorMessage} type="error" showIcon style={{ marginTop: '1rem' }} />}
     </div>
   );
