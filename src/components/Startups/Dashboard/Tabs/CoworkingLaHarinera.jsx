@@ -5,7 +5,7 @@ const { Title, Paragraph, Link } = Typography;
 const CoworkingLaHarinera = () => {
   return (
     <div style={{ maxWidth: 700, margin: "" }}>
-      <Title level={3}>🏢 Coworking La Harinera</Title>
+      <h3 level={3}>🏢 Coworking La Harinera</h3>
       <Paragraph>
         <b>📍 Dirección:</b>{" "}
         <Link href="https://maps.google.com/?q=C%2F+de+Joan+Verdeguer%2C+116%2C+Poblats+Marítims%2C+46024+Valencia" target="_blank">
