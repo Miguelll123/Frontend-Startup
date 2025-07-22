@@ -29,7 +29,6 @@ const MentorDashboard = () => {
         items={items}
         size="large"
       />
-      <AuthLogout />
     </>
   );
 };
