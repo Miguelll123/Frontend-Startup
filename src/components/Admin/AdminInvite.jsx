@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Dropdown, Space, Input, Button, Form, Typography } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-// Asegúrate de importar los estilos de Ant Design en tu archivo principal (ej. App.js o index.js):
-// import 'antd/dist/reset.css'; // Para Ant Design v5
 
 const { Text } = Typography;
 
@@ -11,9 +9,9 @@ const AdminInvite = () => {
   const [role, setRole] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [form] = Form.useForm(); // Usamos Form de Ant Design para manejar el formulario
+  const [form] = Form.useForm(); 
 
-  // Define los ítems para el Dropdown de Ant Design
+  
   const items = [
     {
       key: 'startup',
@@ -25,28 +23,27 @@ const AdminInvite = () => {
     },
   ];
 
-  // Función para manejar la selección del Dropdown
+  
   const handleMenuClick = (e) => {
-    setRole(e.key); // e.key contiene el 'key' del ítem seleccionado ('startup' o 'mentor')
-    form.setFieldsValue({ role: e.key }); // Actualiza el valor en el formulario de Ant Design
+    setRole(e.key); 
+    form.setFieldsValue({ role: e.key }); 
   };
 
   const handleSubmit = async (values) => {
-    // 'values' contendrá { role: '...', email: '...' } si usas Form.Item con name
-    // Si sigues usando estados separados, usa 'role' y 'email' directamente
+    
     try {
       const res = await axios.post('/api/invite', { role: values.role, email: values.email });
       setMessage(res.data.message);
-      setRole(''); // Limpiar el rol después de enviar
-      setEmail(''); // Limpiar el email después de enviar
-      form.resetFields(); // Limpiar los campos del formulario de Ant Design
+      setRole(''); 
+      setEmail(''); 
+      form.resetFields(); 
     } catch (error) {
       console.error('Error al enviar invitación:', error);
       setMessage('Error al enviar invitación. Por favor, inténtalo de nuevo.');
     }
   };
 
-  // Función para obtener el texto del rol seleccionado para mostrar en el Dropdown
+ 
   const getRoleDisplayName = (currentRole) => {
     const selectedItem = items.find(item => item.key === currentRole);
     return selectedItem ? selectedItem.label : 'Selecciona un rol';
@@ -58,7 +55,7 @@ const AdminInvite = () => {
       <Form
         form={form}
         onFinish={handleSubmit}
-        layout="vertical" // Estilo vertical para etiquetas y campos
+        layout="vertical" 
         initialValues={{ role: '', email: '' }}
       >
         <Form.Item
