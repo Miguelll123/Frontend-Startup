@@ -11,7 +11,13 @@ import SignatureModal from "./SignatureModal/SignatureModal";
 
 const MentoringSessionList = ({ userId, role }) => {
   const dispatch = useDispatch();
-  const { sessions, isLoading, isError, message } = useSelector((state) => state.mentoringSessions);
+  const {
+    sessions,
+    isLoading,
+    isError,
+    message,
+    isSuccess: sessionsActionSuccess,
+  } = useSelector((state) => state.mentoringSessions);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentSessionToSign, setCurrentSessionToSign] = useState(null);
@@ -24,7 +30,7 @@ const MentoringSessionList = ({ userId, role }) => {
         dispatch(fetchSessionsByStartup(userId));
       }
     }
-  }, [dispatch, userId, role]);
+  }, [dispatch, userId, role, sessionsActionSuccess]);
 
   const openSignModal = (session) => {
     setCurrentSessionToSign(session);
@@ -38,9 +44,9 @@ const MentoringSessionList = ({ userId, role }) => {
 
   const handleConfirmSign = (sessionId, signatureDataUrl) => {
     if (role === "mentor") {
-      dispatch(signMentor(sessionId));
+      dispatch(signMentor({ sessionId, signatureDataUrl }));
     } else if (role === "startup") {
-      dispatch(signStartup(sessionId));
+      dispatch(signStartup({ sessionId, signatureDataUrl }));
     }
   };
 
@@ -49,6 +55,15 @@ const MentoringSessionList = ({ userId, role }) => {
     const pdfEndpoint = `${API_BASE_URL}/mentoringsessions/pdf/${session._id}`;
     window.open(pdfEndpoint, "_blank");
   };
+
+  //ordenar sesiones por creación (más nuevas primero)
+  const sortedSessions = useMemo(() => {
+    return [...sessions].sort((a, b) => {
+      const dateA = new Date(a.dateTime);
+      const dateB = new Date(b.dateTime);
+      return dateB.getTime() - dateA.getTime();
+    });
+  }, [sessions]);
 
   const columns = useMemo(() => {
     const baseColumns = [
@@ -70,20 +85,26 @@ const MentoringSessionList = ({ userId, role }) => {
         key: "status",
         render: (status) => {
           let color;
+          let displayText;
+
           switch (status) {
             case "signed":
               color = "green";
+              displayText = "FIRMADO";
               break;
             case "pending":
               color = "gold";
+              displayText = "PENDIENTE";
               break;
             case "conflict":
               color = "volcano";
+              displayText = "CONFLICTO";
               break;
             default:
               color = "default";
+              displayText = status;
           }
-          return <Tag color={color}>{status.toUpperCase()}</Tag>;
+          return <Tag color={color}>{displayText}</Tag>;
         },
       },
       {
@@ -103,7 +124,14 @@ const MentoringSessionList = ({ userId, role }) => {
         key: "actions",
         render: (_, record) => {
           const allSigned = record.mentorSigned.signed && record.startupSigned.signed;
-          const showSignButton = role === "startup" && !record.startupSigned.signed;
+
+          // Lógica de visibilidad del botón "Firmar"
+          let showSignButton = false;
+          if (role === "mentor" && !record.mentorSigned.signed) {
+            showSignButton = true;
+          } else if (role === "startup" && !record.startupSigned.signed) {
+            showSignButton = true;
+          }
 
           return (
             <Space size="middle">
@@ -131,24 +159,12 @@ const MentoringSessionList = ({ userId, role }) => {
         key: "startupCompany",
         render: (company) => company || "N/A",
       });
-      dynamicColumns.push({
-        title: "Mentor",
-        dataIndex: ["mentor", "name"],
-        key: "mentorName",
-        render: (name) => name || "N/A",
-      });
     } else if (role === "startup") {
       dynamicColumns.push({
-        title: "Compañía de Mentoría",
-        dataIndex: ["mentor", "companyName"],
+        title: "Mentor",
+        dataIndex: ["mentor", "companyName"], // Usamos companyName para el nombre de la compañía del mentor
         key: "mentorCompanyName",
         render: (companyName) => companyName || "N/A",
-      });
-      dynamicColumns.push({
-        title: "Startup",
-        dataIndex: ["startup", "company"],
-        key: "startupCompany",
-        render: (company) => company || "N/A",
       });
     }
 
@@ -167,22 +183,19 @@ const MentoringSessionList = ({ userId, role }) => {
 
   return (
     <div style={{ padding: "0.2rem" }}>
-      <h2 style={{ fontSize: "1rem", fontWeight: "bold", marginBottom: "1rem" }}>
-        Tus Sesiones de Mentoría
-      </h2>
       <Table
         dataSource={sessions.map((session) => ({ ...session, key: session._id }))}
         columns={columns}
         rowKey="_id"
         loading={isLoading}
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 5 }}
         scroll={{ x: "max-content" }}
       />
 
       <SignatureModal
         visible={isModalVisible}
         session={currentSessionToSign}
-        role={role}
+        role={role} // Pasamos el rol para el texto del modal
         onSign={handleConfirmSign}
         onCancel={closeSignModal}
       />

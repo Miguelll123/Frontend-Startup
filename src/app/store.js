@@ -4,6 +4,7 @@ import auth from "../features/auth/authSlice";
 import trainers from "../features/trainers/trainerSlice";
 import mentoring from "../features/startup/mentoring/mentoringSlice";
 import mentoringSessions from "../features/mentoringsessions/mentoringSessionsSlice";
+import startups from "../features/startup/startupSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     trainers,
     mentoring,
     mentoringSessions,
+    startups,
   },
 });

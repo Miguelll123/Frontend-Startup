@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Modal, Button, Input, Space, Typography, Alert } from "antd";
+import { Modal, Button, Input, Space, Typography } from "antd";
 import SignatureCanvas from "react-signature-canvas"; // Importar la librería
 
 const { Text } = Typography;
@@ -101,12 +101,6 @@ const SignatureModal = ({ visible, session, role, onSign, onCancel }) => {
           />
         </div>
         {error && <Text type="danger">{error}</Text>}
-        <Alert
-          message="Nota Importante"
-          description="Debido a restricciones en la base de datos, esta firma dibujada no se guardará permanentemente ni aparecerá en el PDF. Solo se usará para registrar tu confirmación de la sesión."
-          type="warning"
-          showIcon
-        />
       </Space>
     </Modal>
   );

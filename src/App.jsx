@@ -53,6 +53,7 @@ function App() {
               <Route path="startup/formadores" element={<TrainersList />} />
               <Route path="mentor/mismentorias" element={<MentoringSessionList />} />
               <Route path="startup/mismentorias" element={<MentoringSessionList />} />
+
               {/* <Route path="admin" element={<AdminDashboard />} /> */}
             </Route>
           </Route>

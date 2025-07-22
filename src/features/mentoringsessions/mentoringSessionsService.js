@@ -34,15 +34,50 @@ const createSession = async (sessionData) => {
 };
 
 // Firmar como mentor
-const signAsMentor = async (sessionId) => {
-  const res = await axios.put(`${API_URL}/sign/mentor/${sessionId}`);
-  return res.data.session;
+const signAsMentor = async (sessionId, signatureDataUrl) => {
+  console.log("Servicio signAsMentor: Enviando firma para sessionId:", sessionId);
+  console.log(
+    "Servicio signAsMentor: signatureDataUrl (parcial):",
+    signatureDataUrl ? signatureDataUrl.substring(0, 50) + "..." : "N/A"
+  );
+  try {
+    const res = await axios.patch(`${API_URL}/sign/mentor/${sessionId}`, {
+      signature: signatureDataUrl,
+    });
+    console.log("Servicio signAsMentor: Respuesta de Axios:", res.data);
+    return res.data.session;
+  } catch (error) {
+    console.error("Servicio signAsMentor: Error de Axios:", error.message);
+    if (error.response) {
+      console.error("Servicio signAsMentor: Datos de error de respuesta:", error.response.data);
+      console.error("Servicio signAsMentor: Estado de error de respuesta:", error.response.status);
+    }
+    throw error;
+  }
 };
 
 // Firmar como startup
-const signAsStartup = async (sessionId) => {
-  const res = await axios.put(`${API_URL}/sign/startup/${sessionId}`);
-  return res.data.session;
+const signAsStartup = async (sessionId, signatureDataUrl) => {
+  // Acepta la firma dibujada
+  console.log("Servicio signAsStartup: Enviando firma para sessionId:", sessionId);
+  console.log(
+    "Servicio signAsStartup: signatureDataUrl (parcial):",
+    signatureDataUrl ? signatureDataUrl.substring(0, 50) + "..." : "N/A"
+  );
+  try {
+    const res = await axios.patch(`${API_URL}/sign/startup/${sessionId}`, {
+      signature: signatureDataUrl,
+    });
+    console.log("Servicio signAsStartup: Respuesta de Axios:", res.data);
+    return res.data.session;
+  } catch (error) {
+    console.error("Servicio signAsStartup: Error de Axios:", error.message);
+    if (error.response) {
+      console.error("Servicio signAsStartup: Datos de error de respuesta:", error.response.data);
+      console.error("Servicio signAsStartup: Estado de error de respuesta:", error.response.status);
+    }
+    throw error;
+  }
 };
 
 const mentoringSessionService = {
