@@ -3,7 +3,7 @@ import axios from "axios";
 import Card from "../../../components/Elements/Card/Card";
 import StartupModal from "./StartupModal/StartupModal";
 
-const API_URL = "http://localhost:8080/startup";
+const API_URL = "http://localhost:8080/api/startups"; 
 
 function ParticipantDetail() {
   const [startups, setStartups] = useState([]);
@@ -15,7 +15,7 @@ function ParticipantDetail() {
     axios
       .get(API_URL)
       .then((res) => {
-        setStartups(res.data.startup);
+       setStartups(res.data || []); 
         setLoading(false);
       })
       .catch((err) => {
