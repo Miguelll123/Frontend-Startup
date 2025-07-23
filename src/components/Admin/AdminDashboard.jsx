@@ -36,7 +36,7 @@ const AdminDashboard = () => {
     </div>
       <div style={{ width: "100%", height: "80vh" }}>
       <iframe
-        src="https://admin-dashboard-1vi8.onrender.com"
+        src="https://administrador-kvso.onrender.com/"
         title="Panel Externo de Startups"
         style={{ width: "100%", height: "100%", border: "none" }}
         allowFullScreen
