@@ -3,8 +3,7 @@ import axios from "axios";
 import Card from "../../../components/Elements/Card/Card";
 import StartupModal from "./StartupModal/StartupModal";
 
-
-const API_URL = "http://localhost:8080/api/startups"; 
+const API_URL = "http://localhost:8080/startup";
 
 function ParticipantDetail() {
   const [startups, setStartups] = useState([]);
@@ -16,14 +15,14 @@ function ParticipantDetail() {
     axios
       .get(API_URL)
       .then((res) => {
-        setStartups(res.data || []); 
+        setStartups(res.data.startup);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error al obtener las startups:", err);
         setLoading(false);
       });
-  }, []); 
+  }, []);
 
   const handleOpenModal = (startup) => {
     setSelectedStartup(startup);
@@ -35,67 +34,27 @@ function ParticipantDetail() {
     setSelectedStartup(null);
   };
 
-
-  if (loading) {
-    return (
-      <div style={containerStyle}>
-        <p>Cargando startups...</p>
-      </div>
-    );
-  }
-
-
-  if (startups.length === 0) {
-    return (
-      <div style={containerStyle}>
-        <p>No hay startups disponibles en este momento.</p>
-      </div>
-    );
-  }
+  if (loading) return <p>Cargando startups...</p>;
+  if (startups.length === 0) return <p>No hay startups disponibles.</p>;
 
   return (
-    <div style={containerStyle}>
-      <h2 style={headingStyle}>Startups</h2>
-      <div style={cardGridStyle}>
+    <div>
+      <h2>Startups</h2>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}>
         {startups.map((s) => (
           <Card
             key={s._id}
-            title={s.company} 
-            hoverImage={s.logo || 'https://placehold.co/150x150/cccccc/333333?text=Logo'} 
+            title={s.company}
+            hoverImage={s.logo}
             hoverText={s.sector || "Sin sector"}
             onClick={() => handleOpenModal(s)}
           />
         ))}
       </div>
-      {isModalOpen && (
-        <StartupModal open={isModalOpen} onClose={handleCloseModal} startup={selectedStartup} />
-      )}
+
+      <StartupModal open={isModalOpen} onClose={handleCloseModal} startup={selectedStartup} />
     </div>
   );
 }
-
-
-const containerStyle = {
-  maxWidth: '1200px',
-  margin: '2rem auto',
-  padding: '1.5rem',
-  backgroundColor: '#f9f9f9',
-  borderRadius: '10px',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-};
-
-const headingStyle = {
-  textAlign: 'center',
-  color: '#333',
-  marginBottom: '2rem',
-  fontSize: '2.5rem',
-};
-
-const cardGridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-  gap: '1.5rem',
-  justifyContent: 'center',
-};
 
 export default ParticipantDetail;
