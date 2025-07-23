@@ -8,14 +8,14 @@ const ContactCard = () => {
   const phoneNumber = "+34627711114";
   const emailAddress = "diana.meri@startupvalencia.org";
 
-
+ 
   const [messageApi, contextHolder] = message.useMessage();
 
   useEffect(() => {
-
+   
   }, [messageApi]); 
 
-  
+ 
   const copyToClipboard = (textToCopy, successMessage, errorMessage) => {
     const tempTextArea = document.createElement("textarea");
     tempTextArea.value = textToCopy;
