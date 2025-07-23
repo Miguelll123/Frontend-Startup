@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { MailOutlined, WhatsAppOutlined } from "@ant-design/icons";
-import { Avatar, Card, message } from "antd";
+import { Avatar, Card, message } from "antd"; 
 const { Meta } = Card;
 import "./contactCard.css";
 
@@ -8,30 +8,39 @@ const ContactCard = () => {
   const phoneNumber = "+34627711114";
   const emailAddress = "diana.meri@startupvalencia.org";
 
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   useEffect(() => {
-    message.info("Componente cargado");
-  }, []);
+
+  }, [messageApi]); 
+
+  
+  const copyToClipboard = (textToCopy, successMessage, errorMessage) => {
+    const tempTextArea = document.createElement("textarea");
+    tempTextArea.value = textToCopy;
+    document.body.appendChild(tempTextArea);
+
+    tempTextArea.select();
+    tempTextArea.setSelectionRange(0, 99999);
+
+    try {
+      document.execCommand("copy");
+      messageApi.success(successMessage); 
+    } catch (err) {
+      console.error("Error al copiar:", err);
+      messageApi.error(errorMessage); 
+    } finally {
+      document.body.removeChild(tempTextArea);
+    }
+  };
 
   const handleCopyPhone = () => {
-    navigator.clipboard
-      .writeText(phoneNumber)
-      .then(() => {
-        message.success("Número copiado");
-      })
-      .catch(() => {
-        message.error("Error al copiar el número");
-      });
+    copyToClipboard(phoneNumber, "Número copiado", "Error al copiar el número");
   };
 
   const handleCopyEmail = () => {
-    navigator.clipboard
-      .writeText(emailAddress)
-      .then(() => {
-        message.success("Correo copiado");
-      })
-      .catch(() => {
-        message.error("Error al copiar el correo");
-      });
+    copyToClipboard(emailAddress, "Correo copiado", "Error al copiar el correo");
   };
 
   return (
@@ -47,6 +56,7 @@ const ContactCard = () => {
       ]}
       className="contact-card"
     >
+      {contextHolder}
       <Meta
         avatar={
           <Avatar
