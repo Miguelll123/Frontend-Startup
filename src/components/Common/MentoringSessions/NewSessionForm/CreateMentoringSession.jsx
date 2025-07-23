@@ -17,6 +17,7 @@ import SignatureCanvas from "react-signature-canvas";
 
 import { createMentoringSession } from "../../../../features/mentoringsessions/mentoringSessionsSlice.js";
 import { fetchStartups } from "../../../../features/startup/startupSlice.js";
+import "./creatementoringsession.css";
 
 const { Option } = Select;
 const { Text } = Typography;
@@ -117,7 +118,13 @@ const CreateMentoringSession = () => {
 
       <Collapse activeKey={activeKey} onChange={(key) => setActiveKey(key)}>
         <Panel header="Haz clic para crear una nueva sesión" key="1">
-          <Form form={form} layout="vertical" onFinish={onFinish} initialValues={{ duration: 1 }}>
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            initialValues={{ duration: 1 }}
+            className="custom-label"
+          >
             {/* Campo de Startup */}
             <Form.Item
               name="startupId"
