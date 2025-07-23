@@ -10,6 +10,7 @@ const ModulesList = () => {
   const [loading, setLoading] = useState(true);
   const [selectedModule, setSelectedModule] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [hoveredCardId, setHoveredCardId] = useState(null); // Nuevo estado para la tarjeta en hover
 
   const navigate = useNavigate();
 
@@ -54,25 +55,23 @@ const ModulesList = () => {
             style={{
               width: 300,
               cursor: "pointer",
-              // Colores de fondo con el gradiente principal
               background: "linear-gradient(90deg, #1f0d1e, #070d34)",
-              // Color de texto para que sea legible sobre el fondo oscuro
               color: "#fff",
-              // Sombra para que se "levanten" visualmente
-              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-              // Bordes redondeados sutiles
+              boxShadow: hoveredCardId === mod._id ? "0 8px 16px rgba(0, 0, 0, 0.4)" : "0 4px 8px rgba(0, 0, 0, 0.2)", // Sombra dinámica
               borderRadius: "8px",
+              transition: "all 0.3s ease-in-out", // Transición suave para los cambios de estilo
+              transform: hoveredCardId === mod._id ? "scale(1.03)" : "scale(1)", // Efecto de escala
             }}
             headStyle={{
-              // Estilo para el título de la tarjeta
-              color: "#fff", // Color del título
-              borderBottom: "1px solid rgba(255, 255, 255, 0.2)", // Borde inferior para separar el título
+              color: "#fff",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.2)",
             }}
             bodyStyle={{
-              // Estilo para el cuerpo de la tarjeta
-              color: "#e0e0e0", // Color del texto del cuerpo
+              color: "#e0e0e0",
             }}
             onClick={() => showModal(mod)}
+            onMouseEnter={() => setHoveredCardId(mod._id)} // Establecer el ID de la tarjeta en hover
+            onMouseLeave={() => setHoveredCardId(null)} // Limpiar el ID al salir del hover
           >
             <p>
               <strong>Sesiones:</strong> {mod.session?.length || 0}
@@ -87,7 +86,6 @@ const ModulesList = () => {
         title={selectedModule?.title}
         onCancel={closeModal}
         footer={null}
-        // Puedes añadir estilos al Modal si lo deseas para que coincida con la temática
         bodyStyle={{ color: "var(--text-content)" }}
         headerStyle={{ color: "var(--title-content)" }}
       >
