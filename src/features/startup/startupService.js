@@ -6,10 +6,9 @@ const API_URL = "http://localhost:8080/startup";
 const getAllStartups = async () => {
   try {
     const response = await axios.get(API_URL);
-
-    return response.data.startup;
+    return response.data;
   } catch (error) {
-    console.error("Error fetching all startups:", error.response?.data?.msg || error.message);
+    console.log("Error al obtener startups:", error);
     throw error;
   }
 };
